@@ -1,0 +1,1904 @@
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Чтобы быть уверенным, что прелоадер находится над всеми элементами */
+}
+
+.loader {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.spinner {
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    display: inline-block;
+    border-top: 3px solid #000000;
+    border-right: 3px solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.feather-icons-map-pin {
+    height: 21px;
+    width: 21px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    min-height: 21px;
+}
+
+.h3 {
+    margin: 0;
+    flex: 1;
+    position: relative;
+    font-size: inherit;
+    font-weight: 700;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.addres {
+    width: 238px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.feather-icons-phone-call {
+    height: 21px;
+    width: 21px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    min-height: 21px;
+}
+
+.b {
+    flex: 1;
+    position: relative;
+    white-space: nowrap;
+}
+
+.addres-parent,
+.phone {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.phone {
+    width: 171px;
+    gap: 7px;
+}
+
+.addres-parent {
+    align-self: stretch;
+    padding: 0 20px;
+    gap: 740px;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    font-family: Montserrat;
+}
+
+.vector-icon {
+    width: 127px;
+    height: 61px;
+    position: relative;
+}
+
+.h31,
+.shantara-hotel {
+    margin: 0;
+    position: relative;
+}
+
+.shantara-hotel {
+    align-self: stretch;
+    font-size: inherit;
+    font-weight: 700;
+    font-family: inherit;
+}
+
+.h31 {
+    width: 463px;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: Montserrat;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.frame-parent,
+.header,
+.name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+}
+
+.name {
+    width: 515px;
+    justify-content: flex-start;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.frame-parent,
+.header {
+    align-self: stretch;
+}
+
+.frame-parent {
+    justify-content: center;
+    gap: 170px;
+}
+
+.header {
+    justify-content: flex-start;
+    padding: 25px 0 200px;
+    box-sizing: border-box;
+    background-image: url(./public/header@3x.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    min-height: 596px;
+    text-align: center;
+    font-size: 50px;
+    color: #fff;
+    font-family: Tienne;
+}
+
+.vector-icon1 {
+    width: 65px;
+    height: 31px;
+    position: relative;
+}
+
+.frame-child,
+.h1 {
+    width: 551px;
+    position: relative;
+    max-width: 100%;
+}
+
+.h1 {
+    margin: 0;
+    height: 120px;
+    font-size: inherit;
+    font-weight: 400;
+    font-family: inherit;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.frame-child {
+    max-height: 100%;
+}
+
+.vector-parent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 20px;
+    box-sizing: border-box;
+    gap: 9px;
+    max-width: 100%;
+}
+
+.main-image {
+    width: 588px;
+    height: 400px;
+    position: relative;
+    max-height: 100%;
+    object-fit: cover;
+    max-width: 100%;
+}
+
+.small-image,
+.image-20-icon,
+.image-21-icon,
+.image-22-icon {
+    height: 93px;
+    width: 139px;
+    position: relative;
+    object-fit: cover;
+}
+li .img {
+    height: 400px;
+}
+.images {
+    height: 495px;
+    width: 589px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 9.7px;
+    min-width: 589px;
+    max-width: 100%;
+}
+
+.small-image {
+    cursor: pointer;
+}
+
+.title,
+.short-description {
+    margin: 0;
+    align-self: stretch;
+    position: relative;
+    font-weight: 400;
+    font-family: inherit;
+}
+
+.title {
+    font-size: inherit;
+    color: #7d5835;
+}
+
+.short-description {
+    font-size: 18px;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.span {
+    font-size: 26px;
+}
+
+.span1 {
+    font-size: 22px;
+}
+
+.b1,
+.h33 {
+    position: relative;
+}
+
+.b1 {
+    height: 46px;
+    display: inline-block;
+}
+
+.h33 {
+    margin: 0;
+    align-self: stretch;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: inherit;
+}
+
+.parent {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.span2 {
+    font-size: 22px;
+}
+
+.b2,
+.h34 {
+    align-self: stretch;
+    position: relative;
+    display: inline-block;
+    min-width: 110px;
+}
+
+.h34 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: inherit;
+    min-width: 108px;
+}
+
+.area-people {
+    display: flex;
+    align-items: center;
+}
+
+.area-people {
+    align-self: stretch;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 64.5px;
+    gap: 20px;
+    font-size: 40px;
+    font-family: Montserrat;
+}
+
+.button1 {
+    font-size: 16px;
+    line-height: 24px;
+    font-family: Montserrat;
+    color: #fff;
+    text-align: left;
+}
+
+.button {
+    cursor: pointer;
+    border: 0;
+    padding: 8px 16px;
+    background-color: #7d5835;
+    width: 155px;
+    margin: 0 !important;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.button2:hover,
+.button3:hover,
+.button7:hover,
+.button:hover {
+    background-color: #a3805c;
+}
+
+.feather-icons-wifi {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.wi-fi {
+    position: relative;
+    line-height: 24px;
+    display: inline-block;
+    min-width: 115px;
+}
+
+.shower-rooms {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+}
+
+.feather-icons-wifi1 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.div {
+    flex: 1;
+    position: relative;
+    line-height: 24px;
+}
+
+.parking-space {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+}
+
+.feather-icons-wifi2 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.div1 {
+    position: relative;
+    line-height: 24px;
+    display: inline-block;
+    min-width: 89px;
+}
+
+.t-v-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+}
+
+.feather-icons-wifi3 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.div2 {
+    flex: 1;
+    position: relative;
+    line-height: 24px;
+}
+
+.kitchen-icon {
+    width: 155px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+}
+
+.feather-icons-wifi4 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.div3 {
+    position: relative;
+    line-height: 24px;
+    display: inline-block;
+    min-width: 70px;
+}
+
+.wifi-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+}
+
+.feather-icons-wifi5 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.div4 {
+    flex: 1;
+    position: relative;
+    line-height: 24px;
+}
+
+.feather-icons-wifi-parent {
+    width: 112px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+}
+
+.phosphor-icons-jeep {
+    height: 20px;
+    width: 20px;
+    position: relative;
+}
+
+.div5 {
+    flex: 1;
+    position: relative;
+    line-height: 24px;
+}
+
+.button-instance {
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+}
+
+.shower-rooms-parent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0 9px 0 20px;
+    box-sizing: border-box;
+    gap: 9px;
+    min-width: 133px;
+}
+
+.feather-icons-wifi6 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.wi-fi1 {
+    position: relative;
+    line-height: 24px;
+    display: inline-block;
+    min-width: 111px;
+}
+
+.feather-icons-wifi-group {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+}
+
+.feather-icons-wifi7 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.div6 {
+    flex: 1;
+    position: relative;
+    line-height: 24px;
+}
+
+.feather-icons-wifi-container {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+}
+
+.feather-icons-wifi8 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.div7 {
+    position: relative;
+    line-height: 24px;
+    display: inline-block;
+    min-width: 89px;
+}
+
+.feather-icons-wifi-parent1 {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+}
+
+.feather-icons-wifi9 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.div8 {
+    flex: 1;
+    position: relative;
+    line-height: 24px;
+}
+
+.feather-icons-wifi-parent2 {
+    width: 151px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+}
+
+.feather-icons-wifi10 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.div9 {
+    position: relative;
+    line-height: 24px;
+    display: inline-block;
+    min-width: 70px;
+}
+
+.feather-icons-wifi-parent3 {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+}
+
+.feather-icons-wifi11 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.div10 {
+    flex: 1;
+    position: relative;
+    line-height: 24px;
+}
+
+.feather-icons-wifi-parent4 {
+    width: 112px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+}
+
+.feather-icons-wifi12 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.div11 {
+    flex: 1;
+    position: relative;
+    line-height: 24px;
+}
+
+.feather-icons-wifi-parent5 {
+    width: 145px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 6px;
+}
+
+.electric-tea-kettle,
+.feather-icons-wifi-parent5,
+.frame-div {
+    display: flex;
+    align-items: flex-start;
+}
+
+.frame-div {
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0 10px 0 20px;
+    box-sizing: border-box;
+    gap: 9px;
+    min-width: 133px;
+    font-family: "Inria Sans";
+}
+
+.electric-tea-kettle {
+    align-self: stretch;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 12px 0 50px;
+    gap: 13px;
+    text-align: left;
+    font-size: 13px;
+}
+
+.description {
+    width: 523px;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    position: relative;
+    gap: 18px;
+    min-width: 523px;
+    min-height: 497px;
+    align-items: center
+}
+
+.description,
+.frame-container,
+.frame-group {
+    display: flex;
+    max-width: 100%;
+}
+
+.frame-container {
+    flex-direction: row;
+    justify-content: center;
+    gap: 38px;
+    font-size: 32px;
+}
+
+.frame-group {
+    width: 1150px;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 66px;
+}
+
+.desktop-8-inner,
+.frame-item {
+    align-self: stretch;
+    max-width: 100%;
+}
+
+.desktop-8-inner {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 30px;
+    color: #000;
+    font-family: Montserrat;
+}
+
+.frame-item {
+    overflow: hidden;
+    max-height: 100%;
+}
+
+.div12,
+.frame-item,
+.h35 {
+    position: relative;
+}
+
+.h35 {
+    margin: 0;
+    font-size: inherit;
+    line-height: 34px;
+    font-weight: 600;
+    font-family: inherit;
+}
+
+.div12 {
+    font-size: 16px;
+    line-height: 24px;
+    font-family: Montserrat;
+    color: #fff;
+    text-align: left;
+}
+
+.button2 {
+    cursor: pointer;
+    border: 0;
+    padding: 8px 16px;
+    background-color: #7d5835;
+    flex: 1;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 123px;
+    white-space: nowrap;
+}
+
+.div13 {
+    position: relative;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: Montserrat;
+    color: #fff;
+    text-align: left;
+}
+
+.button3,
+.hiide-houses-logo {
+    flex-direction: row;
+    align-items: center;
+}
+
+.button3 {
+    cursor: pointer;
+    border: 0;
+    padding: 8px 16px;
+    background-color: #7d5835;
+    width: 157px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.hiide-houses-logo {
+    width: 357px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.desktop-8-child,
+.hiide-houses-logo,
+.vector-group {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.vector-group {
+    height: 94px;
+    width: 611px;
+    overflow: hidden;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.desktop-8-child {
+    align-self: stretch;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    font-size: 18px;
+    color: #000;
+    font-family: Montserrat;
+}
+
+.text {
+    margin: 0;
+    width: 150px;
+    position: relative;
+    font-size: inherit;
+    font-weight: 400;
+    font-family: inherit;
+    display: inline-block;
+}
+
+.button-instance1 {
+    width: 735px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    max-width: 100%;
+    text-align: center;
+}
+
+.line-icon {
+    width: 551px;
+    position: relative;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.electric-teakettle {
+    width: 735px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.email,
+.h2,
+.phone1 {
+    align-self: stretch;
+    position: relative;
+}
+
+.h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 400;
+    font-family: inherit;
+    color: #7d5835;
+}
+
+.email,
+.phone1 {
+    white-space: pre-wrap;
+}
+
+.email {
+    margin: 0;
+    font-size: inherit;
+    font-weight: 400;
+    font-family: inherit;
+}
+
+.refrigerator-symbol {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.addres1,
+.h21 {
+    margin: 0;
+    align-self: stretch;
+    position: relative;
+    font-size: inherit;
+    font-weight: 400;
+    font-family: inherit;
+}
+
+.addres1 {
+    font-size: 18px;
+    color: #fff;
+}
+
+.container,
+.refrigerator-symbol-parent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.container {
+    align-self: stretch;
+    gap: 10px;
+    font-size: 22px;
+    color: #7d5835;
+}
+
+.refrigerator-symbol-parent {
+    width: 271px;
+    gap: 40px;
+    min-width: 271px;
+}
+
+.bathroom-icons,
+.map {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+.map {
+    border: 1px solid #fff;
+    background-color: #d9d9d9;
+    height: 302px;
+    width: auto;
+    outline: 0;
+    flex: 1;
+    position: relative;
+    min-width: 276px;
+}
+
+.bathroom-icons {
+    width: 735px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 0 5px;
+    gap: 40px;
+    font-size: 18px;
+}
+
+.contact-data-icon {
+    height: 31px;
+    width: 65px;
+    position: relative;
+}
+
+.copytight-2024 {
+    position: relative;
+}
+
+.copytight-2024-hiidehouses-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 8px 0 0;
+}
+
+.contact-data-parent,
+.footer-inner {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.contact-data-parent {
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.footer-inner {
+    width: 735px;
+    justify-content: center;
+    max-width: 100%;
+    font-size: 12px;
+    font-family: Montserrat;
+}
+
+.main,
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.footer {
+    align-self: stretch;
+    background-color: #44423f;
+    align-items: center;
+    padding: 20px 20px 30px;
+    box-sizing: border-box;
+    gap: 20px;
+    max-width: 100%;
+    text-align: left;
+    font-size: 32px;
+    color: #fff;
+    font-family: Montserrat;
+}
+
+.main {
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    overflow: hidden;
+    align-items: flex-start;
+    gap: 62px;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+@media screen and (max-width: 1200px) {
+    .addres-parent {
+        gap: 370px;
+    }
+
+    .description,
+    .images {
+        flex: 1;
+    }
+
+    .frame-container {
+        flex-wrap: wrap;
+    }
+
+    .frame-group {
+        gap: 33px;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .shantara-hotel {
+        font-size: 40px;
+    }
+
+    .h1 {
+        font-size: 24px;
+    }
+
+    .title,
+    .text {
+        font-size: 26px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .addres-parent {
+        gap: 185px;
+    }
+
+    .frame-parent {
+        gap: 85px;
+    }
+
+    .header {
+        padding-top: 20px;
+        padding-bottom: 130px;
+        box-sizing: border-box;
+    }
+
+    .images {
+        min-width: 100%;
+    }
+
+    .area-people,
+    .electric-tea-kettle {
+        flex-wrap: wrap;
+        box-sizing: border-box;
+    }
+
+    .area-people {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .electric-tea-kettle {
+        padding-left: 25px;
+    }
+
+    .description {
+        min-width: 100%;
+    }
+
+    .frame-container {
+        gap: 19px;
+    }
+
+    .frame-group {
+        gap: 16px;
+    }
+
+    .refrigerator-symbol-parent {
+        flex: 1;
+    }
+
+    .bathroom-icons {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .footer {
+        padding-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    .main {
+        gap: 31px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .addres-parent {
+        display: none;
+        gap: 92px;
+    }
+
+    .shantara-hotel {
+        font-size: 30px;
+    }
+
+    .h31 {
+        font-size: 16px;
+    }
+
+    .frame-parent {
+        gap: 42px;
+    }
+
+    .h1 {
+        font-size: 18px;
+    }
+
+    .title {
+        font-size: 19px;
+    }
+
+    .b1,
+    .b2 {
+        font-size: 18px;
+    }
+
+    .vector-group {
+        height: auto;
+    }
+
+    .text {
+        font-size: 19px;
+    }
+
+    .h2,
+    .h21 {
+        font-size: 18px;
+    }
+
+    .refrigerator-symbol-parent {
+        gap: 20px;
+    }
+
+    .main {
+        gap: 15px;
+    }
+}
+
+.h22 {
+    margin: 0;
+    align-self: stretch;
+    position: relative;
+    font-size: inherit;
+    font-weight: 700;
+    font-family: inherit;
+}
+
+.wrapper {
+    width: 186px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 3px 0 0;
+    box-sizing: border-box;
+}
+
+.phosphor-icons-x {
+    height: 25px;
+    width: 25px;
+    position: relative;
+}
+
+.input-container {
+    width: 560px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 100%;
+}
+
+.image-23 {
+    border: 0;
+    height: 395px;
+    width: auto;
+    outline: 0;
+    align-self: stretch;
+    position: relative;
+}
+
+.campusitmoru {
+    color: inherit;
+}
+
+.campusitmoru-container {
+    align-self: stretch;
+    position: relative;
+    line-height: 20px;
+}
+
+.image-23-parent {
+    width: 470px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 15px;
+    min-width: 470px;
+    max-width: 100%;
+}
+
+.input1 {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    background-color: transparent;
+    height: 20px;
+    flex: 1;
+    position: relative;
+    line-height: 20px;
+    color: #424242;
+    text-align: left;
+    display: inline-block;
+    min-width: 98px;
+    padding: 0;
+}
+
+.input,
+.input-inner {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.input-inner {
+    align-self: stretch;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 2px solid #acacac;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+
+.input {
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 122px;
+}
+
+.input3 {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    background-color: transparent;
+    height: 20px;
+    flex: 1;
+    position: relative;
+    line-height: 20px;
+    color: #424242;
+    text-align: left;
+    display: inline-block;
+    min-width: 98px;
+    padding: 0;
+}
+
+.input-inner1,
+.input2 {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.input-inner1 {
+    align-self: stretch;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 2px solid #acacac;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+
+.input2 {
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 122px;
+}
+
+.input-parent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.input5 {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    background-color: transparent;
+    height: 20px;
+    flex: 1;
+    position: relative;
+    line-height: 20px;
+    color: #424242;
+    text-align: left;
+    display: inline-block;
+    min-width: 98px;
+    padding: 0;
+}
+
+.input-inner2,
+.input4 {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.input-inner2 {
+    align-self: stretch;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 2px solid #acacac;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+
+.input4 {
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 122px;
+}
+
+.input7 {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    background-color: transparent;
+    height: 20px;
+    flex: 1;
+    position: relative;
+    line-height: 20px;
+    color: #424242;
+    text-align: left;
+    display: inline-block;
+    min-width: 98px;
+    padding: 0;
+}
+
+.input-inner3,
+.input6 {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.input-inner3 {
+    align-self: stretch;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 2px solid #acacac;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+
+.input6 {
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 122px;
+}
+
+.input-group {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.input9 {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    background-color: transparent;
+    height: 20px;
+    flex: 1;
+    position: relative;
+    line-height: 20px;
+    color: #424242;
+    text-align: left;
+    display: inline-block;
+    min-width: 216px;
+    max-width: 100%;
+    padding: 0;
+}
+
+.input-inner4,
+.input8 {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    max-width: 100%;
+}
+
+.input-inner4 {
+    border-radius: 4px;
+    background-color: #fff;
+    border: 2px solid #acacac;
+    box-sizing: border-box;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+
+.input8 {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.input11 {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    background-color: transparent;
+    height: 20px;
+    flex: 1;
+    position: relative;
+    line-height: 20px;
+    color: #424242;
+    text-align: left;
+    display: inline-block;
+    min-width: 216px;
+    max-width: 100%;
+    padding: 0;
+}
+
+.input-inner5,
+.input10 {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    max-width: 100%;
+}
+
+.input-inner5 {
+    border-radius: 4px;
+    background-color: #fff;
+    border: 2px solid #acacac;
+    box-sizing: border-box;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+
+.input10 {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.input13 {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    background-color: transparent;
+    height: 20px;
+    flex: 1;
+    position: relative;
+    line-height: 20px;
+    color: #424242;
+    text-align: left;
+    display: inline-block;
+    min-width: 216px;
+    max-width: 100%;
+    padding: 0;
+}
+
+.input-inner6,
+.input12 {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    max-width: 100%;
+}
+
+.input-inner6 {
+    border-radius: 4px;
+    background-color: #fff;
+    border: 2px solid #acacac;
+    box-sizing: border-box;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+
+.input12 {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.feather-icons-phone {
+    height: 15px;
+    width: 15px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.phosphor-icons-eye {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.input15 {
+    width: calc(100% - 35px);
+    border: 0;
+    outline: 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    background-color: transparent;
+    height: 20px;
+    flex: 1;
+    position: relative;
+    line-height: 20px;
+    color: #424242;
+    text-align: left;
+    display: inline-block;
+    min-width: 222px;
+    max-width: 100%;
+    padding: 0;
+}
+
+.input-inner7,
+.input14 {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    max-width: 100%;
+}
+
+.input-inner7 {
+    border-radius: 4px;
+    background-color: #fff;
+    border: 2px solid #acacac;
+    box-sizing: border-box;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    gap: 4px;
+}
+
+.input14 {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.feather-icons-mail {
+    height: 15px;
+    width: 15px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.phosphor-icons-eye1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.input17 {
+    width: calc(100% - 35px);
+    border: 0;
+    outline: 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    background-color: transparent;
+    height: 20px;
+    flex: 1;
+    position: relative;
+    line-height: 20px;
+    color: #424242;
+    text-align: left;
+    display: inline-block;
+    min-width: 222px;
+    max-width: 100%;
+    padding: 0;
+}
+
+.icon-set-for-phosphor,
+.input-inner8,
+.input16 {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    max-width: 100%;
+}
+
+.input-inner8 {
+    border-radius: 4px;
+    background-color: #fff;
+    border: 2px solid #acacac;
+    box-sizing: border-box;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    gap: 4px;
+}
+
+.icon-set-for-phosphor,
+.input16 {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.icon-set-for-phosphor {
+    align-items: center;
+    gap: 27px;
+}
+
+.button8 {
+    position: relative;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    font-family: Montserrat;
+    color: #fff;
+    text-align: left;
+    display: inline-block;
+    min-width: 123px;
+}
+
+.button7,
+.icon-set-for-phosphor-parent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button7 {
+    cursor: pointer;
+    border: 0;
+    padding: 8px 16px;
+    background-color: #7d5835;
+    border-radius: 4px;
+    flex-direction: row;
+}
+
+.icon-set-for-phosphor-parent {
+    margin: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 250px;
+    max-width: 100%;
+}
+
+.frame-parent1,
+.frame-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 100%;
+}
+
+.frame-parent1 {
+    flex: 1;
+    justify-content: center;
+    gap: 30px;
+}
+
+.frame-wrapper {
+    align-self: stretch;
+    justify-content: flex-end;
+    padding: 0 25px;
+    box-sizing: border-box;
+    text-align: left;
+    font-size: 14px;
+    color: #424242;
+    font-family: Montserrat;
+}
+
+.input-container-parent {
+    width: 994px;
+    position: relative;
+    border-radius: 15px;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 12px 30px 30px;
+    box-sizing: border-box;
+    gap: 15px;
+    line-height: normal;
+    letter-spacing: normal;
+    max-width: 90%;
+    max-height: 90%;
+    text-align: center;
+    font-size: 24px;
+    color: #7d5835;
+    font-family: Montserrat;
+}
+
+@media screen and (max-width: 825px) {
+    .image-23-parent {
+        flex: 1;
+    }
+
+    .frame-parent1 {
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 675px) {
+    .image-23-parent {
+        min-width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .h22 {
+        font-size: 19px;
+    }
+
+    .input-group,
+    .input-inner7,
+    .input-inner8,
+    .input-parent {
+        flex-wrap: wrap;
+    }
+}
+
+.image-23 {
+    height: 100%;
+}
+
+.air-datepicker-cell,
+.-day-,
+.-weekend-,
+.-other-month- {
+    width: 100%;
+    height: 100%;
+}
+
+.air-datepicker.-inline- {
+    width: 100%;
+    height: 100%;
+}
+
+.air-datepicker-body--cells {
+    height: 100%;
+    font-size: 20px;
+    padding: 10px 10px 10px 10px;
+}
+
+.air-datepicker-cell {
+    height: 60px;
+    width: 64px;
+}
+
+.air-datepicker-body--cells.-days- {
+    grid-auto-rows: auto;
+}
+
+.air-datepicker-nav {
+    height: 50px;
+}
+
+.air-datepicker-nav--title {
+    font-size: 24px;
+}

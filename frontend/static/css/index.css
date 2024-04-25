@@ -162,7 +162,7 @@
     justify-content: flex-start;
     padding: 25px 0 200px;
     box-sizing: border-box;
-    background-image: url(./public/header@3x.png);
+    background-image: url(../public/header@3x.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top;
@@ -230,20 +230,22 @@
     position: relative;
     object-fit: cover;
 }
+
 li .img {
     height: 400px;
 }
+
 .images {
-    height: 495px;
     width: 589px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
+    align-items: flex-start;
     gap: 8px 9.7px;
     min-width: 589px;
     max-width: 100%;
+    padding-top: 10px;
 }
 
 .small-image {
@@ -284,8 +286,16 @@ li .img {
 }
 
 .b1 {
+    font-weight: 600;
     height: 46px;
     display: inline-block;
+}
+
+.desc {
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+    line-height: 20px;
 }
 
 .h33 {
@@ -699,7 +709,7 @@ li .img {
     gap: 6px;
 }
 
-.electric-tea-kettle,
+.text-description,
 .feather-icons-wifi-parent5,
 .frame-div {
     display: flex;
@@ -717,11 +727,11 @@ li .img {
     font-family: "Inria Sans";
 }
 
-.electric-tea-kettle {
+.text-description {
     align-self: stretch;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    padding: 0 12px 0 50px;
+    padding: 0 12px 0 12px;
     gap: 13px;
     text-align: left;
     font-size: 13px;
@@ -735,7 +745,6 @@ li .img {
     position: relative;
     gap: 18px;
     min-width: 523px;
-    min-height: 497px;
     align-items: center
 }
 
@@ -758,6 +767,12 @@ li .img {
     flex-direction: column;
     justify-content: flex-start;
     gap: 66px;
+}
+
+.price-text {
+    width: 100%;
+    font-size: 22px;
+    text-align: center;
 }
 
 .desktop-8-inner,
@@ -1100,6 +1115,7 @@ li .img {
     .description,
     .images {
         flex: 1;
+        max-width: 60%;
     }
 
     .frame-container {
@@ -1146,7 +1162,7 @@ li .img {
     }
 
     .area-people,
-    .electric-tea-kettle {
+    .text-description {
         flex-wrap: wrap;
         box-sizing: border-box;
     }
@@ -1156,7 +1172,7 @@ li .img {
         padding-right: 32px;
     }
 
-    .electric-tea-kettle {
+    .text-description {
         padding-left: 25px;
     }
 
@@ -1420,13 +1436,13 @@ li .img {
     padding: 0;
 }
 
-.input-inner2,
-.input4 {
+.small-input-inner,
+.small-input {
     display: flex;
     justify-content: flex-start;
 }
 
-.input-inner2 {
+.small-input-inner {
     align-self: stretch;
     border-radius: 4px;
     background-color: #fff;
@@ -1437,7 +1453,7 @@ li .img {
     padding: 10px;
 }
 
-.input4 {
+.small-input {
     flex: 1;
     flex-direction: column;
     align-items: flex-start;
@@ -1495,18 +1511,18 @@ li .img {
     gap: 10px;
 }
 
-.input9 {
+.def-input-input {
     width: 100%;
     border: 0;
     outline: 0;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: 17px;
     background-color: transparent;
     height: 20px;
     flex: 1;
     position: relative;
     line-height: 20px;
-    color: #424242;
+    color: #000;
     text-align: left;
     display: inline-block;
     min-width: 216px;
@@ -1514,15 +1530,15 @@ li .img {
     padding: 0;
 }
 
-.input-inner4,
-.input8 {
+.def-input-inner,
+.def-input {
     align-self: stretch;
     display: flex;
     justify-content: flex-start;
     max-width: 100%;
 }
 
-.input-inner4 {
+.def-input-inner {
     border-radius: 4px;
     background-color: #fff;
     border: 2px solid #acacac;
@@ -1533,7 +1549,7 @@ li .img {
     padding: 10px;
 }
 
-.input8 {
+.def-input {
     flex-direction: column;
     align-items: flex-start;
 }
@@ -1811,6 +1827,10 @@ li .img {
     font-family: Montserrat;
 }
 
+.input-label {
+    width: 100%;
+}
+
 .input-container-parent {
     width: 994px;
     position: relative;
@@ -1882,13 +1902,18 @@ li .img {
 
 .air-datepicker-body--cells {
     height: 100%;
-    font-size: 20px;
+    font-size: 25px;
     padding: 10px 10px 10px 10px;
 }
 
 .air-datepicker-cell {
     height: 60px;
     width: 64px;
+    background-color: #ffffff;
+}
+
+.air-datepicker-cell.-disabled- {
+    background-color: #ffffff;
 }
 
 .air-datepicker-body--cells.-days- {
@@ -1901,4 +1926,41 @@ li .img {
 
 .air-datepicker-nav--title {
     font-size: 24px;
+}
+
+.-in-range-.air-datepicker-cell.-year-.-other-decade-, .-in-range-.air-datepicker-cell.-day-.-other-month- {
+    background-color: #5cc4ef;
+    color: #ffffff;
+}
+
+.air-datepicker.-disabled-range- {
+    --adp-cell-background-color-in-range: #eeeeee;
+    --adp-cell-background-color-selected: #d0d0d0;
+}
+
+.-booked- {
+    background-color: #fb6c6c;
+    color: #fff;
+}
+
+.air-datepicker-cell.-day-.-weekend-.-disabled-.-booked- {
+    background-color: #fb6c6c;
+    color: #fff;
+}
+
+.air-datepicker-cell.-day-.-weekend-.-disabled-.-booked-.-in-range- {
+    background: var(--adp-cell-background-color-in-range);
+    border-radius: 0;
+    color: #000000;
+}
+
+.air-datepicker-cell.-day-.-disabled-.-booked- {
+    background-color: #fb6c6c;
+    color: #fff;
+}
+
+.air-datepicker-cell.-day-.-disabled-.-booked-.-in-range- {
+    background: var(--adp-cell-background-color-in-range);
+    border-radius: 0;
+    color: #000000;
 }

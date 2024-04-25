@@ -62,7 +62,6 @@ def get_bookings():
     for booking in all_bookings:
         # Получаем связанные детали бронирования
         details = Details.query.filter_by(booking_id=booking.id).first()
-
         # Преобразуем объекты модели в словари
         booking_data = {
             'id': booking.id,
@@ -75,7 +74,8 @@ def get_bookings():
                 'adults': details.adults,
                 'children': details.children,
                 'phone': details.phone,
-                'email': details.email
+                'email': details.email,
+                'admin_comment': details.admin_comment.strip()
             } if details else {}
         }
 
@@ -99,5 +99,20 @@ def confirm(booking_id):
 @admins.route("/admin/cancel/<int:booking_id>", methods=['POST'])
 @login_required
 def cancel(booking_id):
+    response = {"status": 200}
+    return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')
+
+
+@admins.route("/admin/add-comment/<int:booking_id>", methods=['POST'])
+@login_required
+def add_comment(booking_id):
+    comment = request.json["comment"]
+
+    booking_details = Details.query.filter_by(booking_id=booking_id).first()
+    booking_details.admin_comment = comment
+
+    db.session.add(booking_details)
+    db.session.commit()
+
     response = {"status": 200}
     return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')

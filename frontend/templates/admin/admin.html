@@ -17,12 +17,14 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         .booking-title {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
         }
+
         .booking-container {
             margin: 10px;
             padding: 10px;
@@ -77,23 +79,23 @@
     </style>
 </head>
 <body style="font-family: Montserrat, serif;">
-    <div style="display: flex; flex-direction: row; align-items: center; gap: 25px; justify-content: space-between;">
-        <h2>Админ-панель</h2>
-        <button class="logout-button"><a href="/logout">Выйти</a></button>
-    </div>
-    
-    <div id="pending" class="booking-status">
-        <h2>Ожидают подтверждения</h2>
-        <!-- Бронирования будут добавлены здесь -->
-    </div>
-    <div id="confirmed" class="booking-status">
-        <h2>Подтверждено</h2>
-        <!-- Бронирования будут добавлены здесь -->
-    </div>
-    <div id="cancelled" class="booking-status">
-        <h2>Отменено</h2>
-        <!-- Бронирования будут добавлены здесь -->
-    </div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 25px; justify-content: space-between;">
+    <h2>Админ-панель</h2>
+    <button class="logout-button"><a href="/logout">Выйти</a></button>
+</div>
+
+<div id="pending" class="booking-status">
+    <h2>Ожидают подтверждения</h2>
+    <!-- Бронирования будут добавлены здесь -->
+</div>
+<div id="confirmed" class="booking-status">
+    <h2>Подтверждено</h2>
+    <!-- Бронирования будут добавлены здесь -->
+</div>
+<div id="cancelled" class="booking-status">
+    <h2>Отменено</h2>
+    <!-- Бронирования будут добавлены здесь -->
+</div>
 <script>
     axios.get('/admin/bookings')
         .then(function (response) {
@@ -101,6 +103,7 @@
             const bookings = response.data.bookings;
             bookings.forEach(booking => {
                 const bookingElement = document.createElement('div');
+                console.log(booking.details.admin_comment.trim());
                 bookingElement.classList.add('booking-container');
                 bookingElement.innerHTML = `
                         <div class="booking-title">
@@ -115,7 +118,7 @@
                         ${booking.details.children ? `<p><b>Дети:</b> ${booking.details.children}</p>` : ''}
                         ${booking.details.phone ? `<p><b>Телефон:</b> ${booking.details.phone}</p>` : ''}
                         ${booking.details.email ? `<p><b>Email:</b> ${booking.details.email}</p>` : ''}
-                        <textarea style="height: 100px; width: 300px; font-size: 18px" placeholder="Комментарий"></textarea>
+                        <textarea data-booking-id="${booking.id}" style="height: 100px; width: 300px; font-size: 18px" placeholder="Комментарий">${booking.details.admin_comment.trim()}</textarea>
                         </div>
                     `;
 
@@ -178,15 +181,38 @@
             console.error('Произошла ошибка при получении данных: ', error);
         });
 </script>
-    <script>
-        function openDescription(booking_id) {
-            const bookingDescription = document.getElementById(`bookingDescription_${booking_id}`)
-            if (bookingDescription.style.display === "block") {
-                bookingDescription.style.display = "none";
-                return;
-            }
-            bookingDescription.style.display = "block";
+<script>
+    function openDescription(booking_id) {
+        const bookingDescription = document.getElementById(`bookingDescription_${booking_id}`)
+        if (bookingDescription.style.display === "block") {
+            bookingDescription.style.display = "none";
+            return;
         }
-    </script>
+        bookingDescription.style.display = "block";
+    }
+</script>
+<script>
+    setTimeout(() => {
+        const textareas = document.querySelectorAll('.booking-description textarea');
+        textareas.forEach(textarea => {
+            textarea.addEventListener('blur', function () {
+                const comment = textarea.value;
+                const bookingId = textarea.dataset.bookingId;
+                console.log(comment, bookingId);
+                axios.post(`/admin/add-comment/${bookingId}`, {
+                    comment: comment
+                })
+                    .then(function (response) {
+                        console.log('Комментарий отправлен:', response.data);
+                        // Обработка успешного запроса
+                    })
+                    .catch(function (error) {
+                        console.error('Ошибка при отправке комментария:', error);
+                        // Обработка ошибки запроса
+                    });
+            });
+        })
+    }, 10)
+</script>
 </body>
 </html>

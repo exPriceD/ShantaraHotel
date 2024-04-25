@@ -19,4 +19,4 @@ class Details(db.Model):
     children = db.Column(db.Integer, nullable=False)
     phone = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(64), nullable=False)
-    admin_comment = db.Column(db.String(65536), nullable=False)
+    admin_comment = db.Column(db.String(65536))

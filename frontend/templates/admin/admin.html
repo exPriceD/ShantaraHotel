@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирования</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        .logout-button {
+            height: 35px;
+            font-size: 18px;
+            padding: 5px 10px;
+            margin-right: 5px;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .booking-title {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .booking-container {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: Montserrat, serif;
+        }
+
+        .booking-description p {
+            line-height: 25px;
+            margin: 10px 0 10px 0;
+            font-family: Montserrat, serif;
+        }
+
+        .booking-status {
+            margin-bottom: 20px;
+        }
+
+        .booking-status h2 {
+            font-family: Montserrat, serif;
+        }
+
+        .booking-container button {
+            height: 35px;
+            font-size: 18px;
+            padding: 5px 10px;
+            margin-right: 5px;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .booking-container button:hover {
+            opacity: 0.8;
+        }
+
+        .confirm-button {
+            background-color: #6bb46c; /* Зеленый */
+        }
+
+        .cancel-button {
+            background-color: #f57b73; /* Красный */
+        }
+
+        .action-button {
+            padding-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body style="font-family: Montserrat, serif;">
+    <div style="display: flex; flex-direction: row; align-items: center; gap: 25px; justify-content: space-between;">
+        <h2>Админ-панель</h2>
+        <button class="logout-button"><a href="/logout">Выйти</a></button>
+    </div>
+    
+    <div id="pending" class="booking-status">
+        <h2>Ожидают подтверждения</h2>
+        <!-- Бронирования будут добавлены здесь -->
+    </div>
+    <div id="confirmed" class="booking-status">
+        <h2>Подтверждено</h2>
+        <!-- Бронирования будут добавлены здесь -->
+    </div>
+    <div id="cancelled" class="booking-status">
+        <h2>Отменено</h2>
+        <!-- Бронирования будут добавлены здесь -->
+    </div>
+<script>
+    axios.get('/admin/bookings')
+        .then(function (response) {
+            // Обращаемся к массиву bookings внутри полученного объекта
+            const bookings = response.data.bookings;
+            bookings.forEach(booking => {
+                const bookingElement = document.createElement('div');
+                bookingElement.classList.add('booking-container');
+                bookingElement.innerHTML = `
+                        <div class="booking-title">
+                        <p><b>Бронь № ${booking.id} от ${booking.booking_date}</b></p>
+                        <img onclick="openDescription(${booking.id})" style="width:25px; height: 30px;" src="../static/public/arrow-down-338-svgrepo-com.svg" alt="">
+                        </div>
+                        <div id="bookingDescription_${booking.id}" class="booking-description" style="display: none">
+                        <p><b>Дата заезда:</b> ${booking.entry_date}</p>
+                        <p><b>Дата выезда:</b> ${booking.departure_date}</p>
+                        ${booking.details.name ? `<p><b>Имя:</b> ${booking.details.name}</p>` : ''}
+                        ${booking.details.adults ? `<p><b>Взрослые:</b> ${booking.details.adults}</p>` : ''}
+                        ${booking.details.children ? `<p><b>Дети:</b> ${booking.details.children}</p>` : ''}
+                        ${booking.details.phone ? `<p><b>Телефон:</b> ${booking.details.phone}</p>` : ''}
+                        ${booking.details.email ? `<p><b>Email:</b> ${booking.details.email}</p>` : ''}
+                        <textarea style="height: 100px; width: 300px; font-size: 18px" placeholder="Комментарий"></textarea>
+                        </div>
+                    `;
+
+                if (booking.status === 'Ожидает подтверждения') {
+                    const divButtons = document.createElement('div')
+                    const confirmButton = document.createElement('button');
+                    confirmButton.innerText = 'Подтвердить';
+                    confirmButton.classList.add('confirm-button')
+                    confirmButton.onclick = function () {
+                        axios.post('/admin/confirm/' + booking.id)
+                            .then(response => {
+                                // Обработка успешного подтверждения
+                                console.log('Бронирование подтверждено:', response);
+                                document.getElementById('confirmed').appendChild(bookingElement);
+                                confirmButton.remove();
+                            })
+                            .catch(error => {
+                                console.error('Ошибка подтверждения бронирования:', error);
+                            });
+                    };
+
+                    const cancelButton = document.createElement('button');
+                    cancelButton.classList.add('cancel-button')
+                    cancelButton.innerText = 'Отменить';
+                    cancelButton.onclick = function () {
+                        axios.post('/admin/cancel/' + booking.id)
+                            .then(response => {
+                                document.getElementById('cancelled').appendChild(bookingElement);
+                                confirmButton.remove();
+                                cancelButton.remove();
+                            })
+                            .catch(error => {
+                                console.error('Ошибка отмены бронирования:', error);
+                            });
+                    };
+
+                    divButtons.classList.add('action-button');
+
+                    divButtons.appendChild(confirmButton);
+                    divButtons.appendChild(cancelButton);
+
+                    setTimeout(() => {
+                        const divBookingDescription = document.getElementById(`bookingDescription_${booking.id}`);
+                        if (divBookingDescription) {
+                            divBookingDescription.appendChild(divButtons);
+                        } else {
+                            console.error('Элемент для добавления кнопок не найден');
+                        }
+                    }, 0);
+
+                    document.getElementById('pending').appendChild(bookingElement);
+                } else if (booking.status === 'Подтверждено') {
+                    document.getElementById('confirmed').appendChild(bookingElement);
+                } else if (booking.status === 'Отменено') {
+                    document.getElementById('cancelled').appendChild(bookingElement);
+                }
+            });
+        })
+        .catch(function (error) {
+            console.error('Произошла ошибка при получении данных: ', error);
+        });
+</script>
+    <script>
+        function openDescription(booking_id) {
+            const bookingDescription = document.getElementById(`bookingDescription_${booking_id}`)
+            if (bookingDescription.style.display === "block") {
+                bookingDescription.style.display = "none";
+                return;
+            }
+            bookingDescription.style.display = "block";
+        }
+    </script>
+</body>
+</html>

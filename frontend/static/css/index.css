@@ -1308,10 +1308,30 @@ li .img {
     color: inherit;
 }
 
-.campusitmoru-container {
+.info-block {
     align-self: stretch;
     position: relative;
     line-height: 20px;
+}
+
+.info-block h2 {
+    margin-block-end: 10px;
+}
+
+.info-block p {
+    font-size: 17px;
+    margin: 10px 0 10px 0;
+}
+
+.info-block ul {
+    margin-block-start: 0;
+    font-size: 17px;
+    padding-inline-start: 30px;
+    line-height: 25px;
+}
+
+.info-block ul li {
+    margin: 5px 0 5px 0;
 }
 
 .image-23-parent {
@@ -1825,6 +1845,8 @@ li .img {
     font-size: 14px;
     color: #424242;
     font-family: Montserrat;
+    display: flex;
+    flex-direction: column;
 }
 
 .input-label {
@@ -1847,7 +1869,6 @@ li .img {
     line-height: normal;
     letter-spacing: normal;
     max-width: 90%;
-    max-height: 90%;
     text-align: center;
     font-size: 24px;
     color: #7d5835;
@@ -1909,7 +1930,13 @@ li .img {
 .air-datepicker-cell {
     height: 60px;
     width: 64px;
+    background-color: #ccebd1;
+    border-radius: 0;
+}
+
+.air-datepicker-cell.-year-.-other-decade-, .air-datepicker-cell.-day-.-other-month- {
     background-color: #ffffff;
+    color: #000000;
 }
 
 .air-datepicker-cell.-disabled- {
@@ -1921,7 +1948,7 @@ li .img {
 }
 
 .air-datepicker-nav {
-    height: 50px;
+    height: 105px;
 }
 
 .air-datepicker-nav--title {
@@ -1963,4 +1990,31 @@ li .img {
     background: var(--adp-cell-background-color-in-range);
     border-radius: 0;
     color: #000000;
+}
+
+.summary-block {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    text-align: start;
+    font-size: 20px;
+}
+
+.summary-block p {
+    margin: 11px 0 11px 0;
+    color: #000000;
+}
+
+.color-square {
+    width: 40px; /* размер квадрата */
+    height: 40px; /* размер квадрата */
+    margin-right: 10px; /* отступ справа */
+    border-radius: 15px;
+}
+
+.square1 {
+    background-color: #ccebd1; /* цвет квадрата 1 */
+}
+
+.square2 {
+    background-color: #fb6c6c;
 }

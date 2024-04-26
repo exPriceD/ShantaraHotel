@@ -177,17 +177,12 @@
               <img class="phosphor-icons-x" loading="lazy" alt="" src="../static/public/phosphor-icons--x.svg"/>
           </span>
         </div>
-        <section class="frame-wrapper">
+        <section id="booking-form" class="frame-wrapper">
             <div class="frame-parent1">
                 <div class="image-23-parent">
                     <div class="image-23" id="calen"></div>
-                    <div class="campusitmoru-container">
-                        <p>Заселение начинается с 14:00. С собой необходимо иметь паспорт, согласие родителя (в случае,
-                            если Вам не исполнилось 18 лет). В случае возникновения каких-либо вопросов, напишите на
-                            почту campus@itmo.ru или позвоните по номеру +79317019910.</p>
-                    </div>
                 </div>
-                <form class="icon-set-for-phosphor-parent">
+                <div class="icon-set-for-phosphor-parent">
                     <div class="icon-set-for-phosphor">
                         <div class="input-parent">
                             <div class="input">
@@ -271,10 +266,60 @@
                             </div>
                         </div>
                     </div>
-                    <button class="button7">
-                        <div class="button8">Забронировать</div>
-                    </button>
-                </form>
+                </div>
+            </div>
+            <div class="info-block" style="display: flex; flex-direction: row;">
+                <div style="">
+                    <div class="booking-info"
+                         style="display: flex; flex-direction: column; gap: 10px; padding-top: 10px;">
+                        <div style="display: flex; flex-direction: row; align-items: center;">
+                            <div class="color-square square1"></div>
+                            <p style="width: 420px; font-size: 17px;">- Дни текущего месяца доступные для брони</p>
+                        </div>
+                        <div style="display: flex; flex-direction: row; align-items: center;">
+                            <div class="color-square square2"></div>
+                            <p style="width: 430px; font-size: 17px;">- Занятые дни. Бронирование невозможно</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; width: 300px; padding-top: 15px;">
+                        <h2 style=" width: 300px; ">Связь с нами:</h2>
+                        <ul style=" width: 300px;">
+                            <li>Почта: <a href="mailto:ShantaraHotel@mail.ru">ShantaraHotel@mail.ru</a></li>
+                            <li>Телефон: <a href="tel:+79317019910">+7 (931) 701-99-10</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="padding-left: 20px;">
+                    <h2>Заселение и выселение</h2>
+                    <ul>
+                        <li>Заселение после 14:00</li>
+                        <li>Выселение до 12:00</li>
+                    </ul>
+                    <h2>С собой иметь:</h2>
+                    <ul>
+                        <li>паспорт</li>
+                        <li>свидетельство о рождении (для детей до 14 лет)</li>
+                        <li>согласие родителя в случае, если вам не исполнилось 18 лет</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="width: 100%; display: flex; justify-content: center;">
+                <button class="button7" onclick="createSummaryBlock()">
+                    <div class="button8">Забронировать</div>
+                </button>
+            </div>
+        </section>
+        <section id="summarySection" style="display: none; width: 100%;">
+            <h4 style="margin: 10px 0 10px 0;text-align: start; font-size: 22px;">Пожалуйста, проверьте корректность
+                введенных данных:</h4>
+            <div id="summarySectionData"></div>
+            <div style="width: 100%; display: flex; justify-content: center; gap: 15px;">
+                <button class="button7" id="back-button" onclick="back()">
+                    <div style=" text-align: center; " class="button8">Назад</div>
+                </button>
+                <button class="button7" id="booking-button">
+                    <div class="button8">Забронировать</div>
+                </button>
             </div>
         </section>
     </div>
@@ -282,7 +327,7 @@
 
 <script>
     const HOST = "http://127.0.0.1:5000"
-    document.querySelector('.button7').addEventListener('click', function (event) {
+    document.getElementById('booking-button').addEventListener('click', function (event) {
         event.preventDefault();
 
         const fields = [
@@ -339,77 +384,82 @@
     });
 </script>
 <script>
-    const disabledDates = [
-        new Date('2024-05-07T00:00:00'),
-        new Date('2024-05-08T00:00:00'),
-        new Date('2024-05-09T00:00:00')
-    ];
+    axios.get('/free-dates')
+        .then(function (response) {
+            const dateStrings = response.data.dates;
 
-    const isDisabledDateIsInRange = ({date, datepicker}) => {
-        const selectedDate = datepicker.selectedDates[0];
-        if (selectedDate && datepicker.selectedDates.length === 1) {
-            const sortedDates = [selectedDate, date].sort((a, b) => a - b);
+            const disabledDates = dateStrings.map(dateStr => new Date(dateStr));
 
-            return disabledDates.some(disabledDate =>
-                dateFns.isWithinInterval(disabledDate, {
-                    start: sortedDates[0],
-                    end: sortedDates[1]
-                })
-            );
-        }
-        return false;
-    }
+            const isDisabledDateIsInRange = ({date, datepicker}) => {
+                const selectedDate = datepicker.selectedDates[0];
+                if (selectedDate && datepicker.selectedDates.length === 1) {
+                    const sortedDates = [selectedDate, date].sort((a, b) => a - b);
 
-    new AirDatepicker('#calen', {
-        inline: true,
-        range: true,
-        minDate: new Date(),
-        onBeforeSelect: ({date, datepicker}) => {
-            // Не даем выбрать дату, если недопустимая дата в диапазоне
-            return !isDisabledDateIsInRange({date, datepicker});
-        },
-        onFocus: ({date, datepicker}) => {
-            if (isDisabledDateIsInRange({
-                date,
-                datepicker
-            }) || disabledDates.some(disabledDate => dateFns.isEqual(date, disabledDate))) {
-                datepicker.$datepicker.classList.add('-disabled-range-')
-            } else {
-                datepicker.$datepicker.classList.remove('-disabled-range-')
-            }
-        },
-        onRenderCell: ({date}) => {
-            if (disabledDates.some(disabledDate => date.toLocaleDateString() === disabledDate.toLocaleDateString())) {
-                return {
-                    disabled: true,
-                    classes: "-booked-"
+                    return disabledDates.some(disabledDate =>
+                        dateFns.isWithinInterval(disabledDate, {
+                            start: sortedDates[0],
+                            end: sortedDates[1]
+                        })
+                    );
                 }
+                return false;
             }
-        },
-        onSelect: function (fd, date, picker) {
-            let selectedDates = fd["formattedDate"];
-            if (selectedDates.length >= 2) {
-                // Сортируем даты от самой ранней до самой поздней
-                selectedDates.sort(function (a, b) {
-                    return a - b
-                });
 
-                let firstDate = selectedDates[0]; // первая выбранная дата
-                let lastDate = selectedDates[selectedDates.length - 1]; // последняя выбранная дата
+            new AirDatepicker('#calen', {
+                inline: true,
+                range: true,
+                minDate: new Date(),
+                onBeforeSelect: ({date, datepicker}) => {
+                    // Не даем выбрать дату, если недопустимая дата в диапазоне
+                    return !isDisabledDateIsInRange({date, datepicker});
+                },
+                onFocus: ({date, datepicker}) => {
+                    if (isDisabledDateIsInRange({
+                        date,
+                        datepicker
+                    }) || disabledDates.some(disabledDate => dateFns.isEqual(date, disabledDate))) {
+                        datepicker.$datepicker.classList.add('-disabled-range-')
+                    } else {
+                        datepicker.$datepicker.classList.remove('-disabled-range-')
+                    }
+                },
+                onRenderCell: ({date}) => {
+                    if (disabledDates.some(disabledDate => date.toLocaleDateString() === disabledDate.toLocaleDateString())) {
+                        return {
+                            disabled: true,
+                            classes: "-booked-"
+                        }
+                    }
+                },
+                onSelect: function (fd, date, picker) {
+                    let selectedDates = fd["formattedDate"];
+                    if (selectedDates.length >= 2) {
+                        // Сортируем даты от самой ранней до самой поздней
+                        selectedDates.sort(function (a, b) {
+                            return a - b
+                        });
 
-                // Получаем элементы полей ввода
-                let firstInput = document.getElementById("firstDateInput");
-                let secondInput = document.getElementById("secondDateInput");
+                        let firstDate = selectedDates[0]; // первая выбранная дата
+                        let lastDate = selectedDates[selectedDates.length - 1]; // последняя выбранная дата
 
-                firstInput.parentNode.parentNode.style.border = '2px solid #acacac';
-                secondInput.parentNode.parentNode.style.border = '2px solid #acacac';
+                        // Получаем элементы полей ввода
+                        let firstInput = document.getElementById("firstDateInput");
+                        let secondInput = document.getElementById("secondDateInput");
 
-                // Преобразовываем выбранные даты в строку и устанавливаем значения полей ввода
-                firstInput.value = firstDate;
-                secondInput.value = lastDate;
-            }
-        }
-    });
+                        firstInput.parentNode.parentNode.style.border = '2px solid #acacac';
+                        secondInput.parentNode.parentNode.style.border = '2px solid #acacac';
+
+                        // Преобразовываем выбранные даты в строку и устанавливаем значения полей ввода
+                        firstInput.value = firstDate;
+                        secondInput.value = lastDate;
+                    }
+                }
+            });
+        })
+        .catch(function (error) {
+            // Здесь обрабатывайте возможные ошибки запроса
+            console.error(error);
+        });
 
     function formatDate(date) {
         return (date.getMonth() + 1).toString().padStart(2, '0') + '/'
@@ -448,6 +498,77 @@
         const popup = document.getElementById("framePopup");
         if (!popup) return;
         popup.style.display = 'none';
+    }
+</script>
+<script>
+    function createSummaryBlock() {
+        const inputFields = [
+            {element: document.querySelector('input[placeholder="Фамилия"]'), label: 'Фамилия: '},
+            {element: document.querySelector('input[placeholder="Имя"]'), label: 'Имя: '},
+            {element: document.querySelector('input[placeholder="Отчество"]'), label: 'Отчество: '},
+            {element: document.querySelector('input[placeholder="Заезд"]'), label: 'Дата заезда: '},
+            {element: document.querySelector('input[placeholder="Выезд"]'), label: 'Дата выезда: '},
+            {element: document.querySelector('input[placeholder="Взрослых"]'), label: 'Количество взрослых: '},
+            {element: document.querySelector('input[placeholder="Детей"]'), label: 'Количество детей: '},
+            {element: document.querySelector('input[placeholder="Номер телефона"]'), label: 'Номер телефона: '},
+            {element: document.querySelector('input[placeholder="Электронная почта"]'), label: 'Электронная почта: '}
+        ];
+
+        const data = {};
+        let allFieldsFilled = true;
+        inputFields.forEach(field => {
+            if (field.element.value === '') {
+                field.element.parentNode.parentNode.style.border = '2px solid red';
+                allFieldsFilled = false;
+            } else {
+                data[field.value] = field.element.value;
+            }
+            field.element.addEventListener('focus', function () {
+                this.parentNode.parentNode.style.border = '2px solid #acacac';
+            });
+        });
+        if (!allFieldsFilled) {
+            return;
+        }
+
+        const bookingBlock = document.getElementById('booking-form');
+        bookingBlock.style.display = 'none'
+
+        const summaryBlock = document.createElement('div');
+        summaryBlock.id = 'summaryBlock';
+        summaryBlock.className = "summary-block"
+
+        inputFields.forEach(field => {
+            const p = document.createElement('p');
+
+            const strong = document.createElement('strong');
+            strong.textContent = field.label;
+
+            p.appendChild(strong);
+            if (field.element) {
+                p.appendChild(document.createTextNode(field.element.value));
+            }
+
+            summaryBlock.appendChild(p);
+        });
+
+        const summarySection = document.getElementById("summarySection");
+        summarySection.style.display = 'block';
+
+        const summarySectionData = document.getElementById("summarySectionData");
+        summarySectionData.appendChild(summaryBlock);
+    }
+</script>
+<script>
+    function back() {
+        const bookingBlock = document.getElementById('booking-form');
+        bookingBlock.style.display = 'flex'
+
+        const summarySection = document.getElementById("summarySection");
+        summarySection.style.display = 'none';
+
+        const summaryBlock = document.getElementById("summaryBlock");
+        summaryBlock.remove();
     }
 </script>
 </body>

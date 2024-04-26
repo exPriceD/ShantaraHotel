@@ -27,7 +27,7 @@ def booking():
     new_booking = Bookings(
         entry_date=data['firstDate'],
         departure_date=data['secondDate'],
-        status="Ожидает подтверждения",
+        status="pending",
         booking_date=date_now
     )
 

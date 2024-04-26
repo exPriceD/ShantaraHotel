@@ -122,7 +122,7 @@
                         </div>
                     `;
 
-                if (booking.status === 'Ожидает подтверждения') {
+                if (booking.status === 'pending') {
                     const divButtons = document.createElement('div')
                     const confirmButton = document.createElement('button');
                     confirmButton.innerText = 'Подтвердить';
@@ -170,9 +170,9 @@
                     }, 0);
 
                     document.getElementById('pending').appendChild(bookingElement);
-                } else if (booking.status === 'Подтверждено') {
+                } else if (booking.status === 'accepted') {
                     document.getElementById('confirmed').appendChild(bookingElement);
-                } else if (booking.status === 'Отменено') {
+                } else if (booking.status === 'canceled') {
                     document.getElementById('cancelled').appendChild(bookingElement);
                 }
             });

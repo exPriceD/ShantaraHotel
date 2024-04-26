@@ -1,11 +1,15 @@
-from flask import render_template, request, jsonify, Blueprint
+from flask import render_template, request, jsonify, Blueprint, Response
 
 from app import db
 from app.models import Bookings, Details
 from app.schemas import BookingSchema
 
-from app.utils import get_current_time
+from app.utils import get_current_date, format_date
 from marshmallow import ValidationError
+
+from datetime import datetime, timedelta
+from collections import Counter
+import json
 
 api = Blueprint('api', __name__)
 static_pages = Blueprint('static_pages', __name__)
@@ -22,7 +26,7 @@ def booking():
 
     print(data)
 
-    date_now = get_current_time(timezone='Europe/Moscow')
+    date_now = get_current_date(timezone='Europe/Moscow')
 
     new_booking = Bookings(
         entry_date=data['firstDate'],
@@ -56,3 +60,24 @@ def booking():
 @static_pages.route('/', methods=['GET'])
 def main():
     return render_template('index.html')
+
+
+@static_pages.route('/free-dates', methods=['GET'])
+def get_free_dates():
+    bookings = Bookings.query.all()
+
+    date_ranges = []
+    for current_booking in bookings:
+        start_date = datetime.strptime(current_booking.entry_date, "%d.%m.%Y")
+        end_date = datetime.strptime(current_booking.departure_date, "%d.%m.%Y")
+        date_range = [start_date + timedelta(days=x) for x in range((end_date - start_date).days)]
+        date_ranges.extend(date_range)
+
+    date_counts = Counter(date_ranges)
+    overlapping_dates = [date for date, count in date_counts.items() if count > 1]
+
+    current_date = datetime.strptime(get_current_date(return_time=False), '%d.%m.%Y')
+    filtered_dates = [format_date(date) for date in overlapping_dates if date >= current_date]
+
+    response = {"status": 200, "dates": filtered_dates}
+    return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')

@@ -9,6 +9,7 @@ from marshmallow import ValidationError
 
 from datetime import datetime, timedelta
 from collections import Counter
+from sqlalchemy import or_
 import json
 
 api = Blueprint('api', __name__)
@@ -64,7 +65,12 @@ def main():
 
 @static_pages.route('/free-dates', methods=['GET'])
 def get_free_dates():
-    bookings = Bookings.query.all()
+    bookings = Bookings.query.filter(
+        or_(
+            Bookings.status == "pending",
+            Bookings.status == "confirmed"
+        )
+    ).all()
 
     date_ranges = []
     for current_booking in bookings:
@@ -78,6 +84,7 @@ def get_free_dates():
 
     current_date = datetime.strptime(get_current_date(return_time=False), '%d.%m.%Y')
     filtered_dates = [format_date(date) for date in overlapping_dates if date >= current_date]
+    print(filtered_dates)
 
     response = {"status": 200, "dates": filtered_dates}
     return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')

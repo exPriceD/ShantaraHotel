@@ -14,14 +14,6 @@ class User(UserMixin):
         self.id = id
 
 
-bookings = [
-    {"id": 1, "name": "Александр", "dates": "20.04.2024 - 27.04.2024", "adults": 2, "children": 1,
-     "phone": "+7 123 456 78 90", "email": "alex@example.com", "status": "Ожидает подтверждения"},
-    {"id": 2, "name": "Мария", "dates": "22.04.2024 - 29.04.2024", "adults": 2, "children": 0,
-     "phone": "+7 098 765 43 21", "email": "maria@example.com", "status": "Подтверждено"}
-]
-
-
 @login_manager.user_loader
 def load_user(user_id):
     return User(user_id)
@@ -44,7 +36,7 @@ def login():
 @admins.route("/admin")
 @login_required
 def admin():
-    return render_template("admin/admin.html", bookings=bookings)
+    return render_template("admin/admin.html")
 
 
 @admins.route("/logout")
@@ -91,7 +83,7 @@ def get_bookings():
 @login_required
 def confirm(booking_id):
     booking = Bookings.query.get(booking_id)
-    booking.status = "accepted"
+    booking.status = "confirmed"
 
     db.session.add(booking)
     db.session.commit()
@@ -126,3 +118,4 @@ def add_comment(booking_id):
 
     response = {"status": 200}
     return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')
+

@@ -6,7 +6,7 @@ def get_current_date(timezone='Europe/Moscow', return_time=True):
     moscow_tz = pytz.timezone(timezone)
     moscow_time = datetime.now(moscow_tz)
     if return_time:
-        return moscow_time.strftime('%d.%m.%y %H:%M')
+        return moscow_time.strftime('%d.%m.%Y %H:%M')
     return moscow_time.strftime('%d.%m.%Y')
 
 

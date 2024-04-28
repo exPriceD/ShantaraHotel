@@ -435,6 +435,17 @@
         axios.post(`/admin/date/block`, data)
             .then(function (response) {
                 console.log(`Даты заблокированы:`, response.data);
+                const selectedCells = document.querySelectorAll('.air-datepicker-cell.-selected-');
+                const inRangeCells = document.querySelectorAll('.air-datepicker-cell.-in-range-');
+
+                selectedCells.forEach(cell => {
+                    cell.style.backgroundColor = '#313131'; // Замените на желаемый цвет фона
+                });
+
+                inRangeCells.forEach(cell => {
+                    cell.style.backgroundColor = '#313131'; // Замените на желаемый цвет фона
+                    cell.style.color = '#fff'
+                });
             })
             .catch(function (error) {
                 console.error(`Ошибка:`, error);
@@ -452,6 +463,18 @@
         axios.post(`/admin/date/unlock`, data)
             .then(function (response) {
                 console.log(`Даты разблокированы:`, response.data);
+                const selectedCells = document.querySelectorAll('.air-datepicker-cell.-selected-');
+                const inRangeCells = document.querySelectorAll('.air-datepicker-cell.-in-range-');
+
+                selectedCells.forEach(cell => {
+                    cell.style.backgroundColor = '#ccebd1'; // Замените на желаемый цвет фона
+                    cell.style.color = '#4a4a4a'
+                });
+
+                inRangeCells.forEach(cell => {
+                    cell.style.backgroundColor = '#ccebd1'; // Замените на желаемый цвет фона
+                    cell.style.color = '#4a4a4a'
+                });
             })
             .catch(function (error) {
                 console.error(`Ошибка:`, error);

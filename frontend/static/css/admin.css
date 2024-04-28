@@ -1,0 +1,298 @@
+.air-datepicker-cell,
+.-day-,
+.-weekend-,
+.-other-month- {
+    width: 100%;
+    height: 100%;
+}
+
+.air-datepicker.-inline- {
+    width: 100%;
+    height: 100%;
+}
+
+.air-datepicker-body--cells {
+    height: 100%;
+    font-size: 25px;
+    padding: 10px 10px 10px 10px;
+}
+
+.air-datepicker-cell {
+    height: 60px;
+    background-color: #ccebd1;
+    border-radius: 0;
+}
+
+.air-datepicker-cell.-year-.-other-decade-, .air-datepicker-cell.-day-.-other-month- {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.air-datepicker-cell.-disabled- {
+    background-color: #ffffff;
+}
+
+.air-datepicker-body--cells.-days- {
+    grid-auto-rows: auto;
+}
+
+.air-datepicker-nav {
+    height: 105px;
+}
+
+.air-datepicker-nav--title {
+    font-size: 24px;
+}
+
+.-in-range-.air-datepicker-cell.-year-.-other-decade-, .-in-range-.air-datepicker-cell.-day-.-other-month- {
+    background-color: #5cc4ef;
+    color: #ffffff;
+}
+
+.air-datepicker.-disabled-range- {
+    --adp-cell-background-color-in-range: #eeeeee;
+    --adp-cell-background-color-selected: #d0d0d0;
+}
+
+.-booked- {
+    background-color: #fb6c6c;
+    color: #fff;
+}
+
+.air-datepicker-cell.-day-.-weekend-.-disabled-.-booked- {
+    background-color: #fb6c6c;
+    color: #fff;
+}
+
+.air-datepicker-cell.-day-.-weekend-.-disabled-.-booked-.-in-range- {
+    background: var(--adp-cell-background-color-in-range);
+    border-radius: 0;
+    color: #000000;
+}
+
+.air-datepicker-cell.-day-.-disabled-.-booked- {
+    background-color: #fb6c6c;
+    color: #fff;
+}
+
+.air-datepicker-cell.-day-.-disabled-.-booked-.-in-range- {
+    background: var(--adp-cell-background-color-in-range);
+    border-radius: 0;
+    color: #000000;
+}
+
+.logout-button {
+    height: 35px;
+    font-size: 18px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.booking-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.passport-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.booking-container {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: Montserrat, serif;
+}
+
+.booking-description p {
+    line-height: 25px;
+    margin: 10px 0 10px 0;
+    font-family: Montserrat, serif;
+}
+
+.passport-description p {
+    line-height: 25px;
+    margin: 10px 0 10px 0;
+    font-family: Montserrat, serif;
+}
+
+.booking-status {
+    margin-bottom: 20px;
+}
+
+.booking-status h2 {
+    font-family: Montserrat, serif;
+}
+
+.booking-container button {
+    height: 35px;
+    font-size: 18px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.booking-container button:hover {
+    opacity: 0.8;
+}
+
+.confirm-button {
+    background-color: #6bb46c; /* Зеленый */
+}
+
+.cancel-button {
+    background-color: #f57b73; /* Красный */
+}
+
+.action-button {
+    padding-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.fancy-input {
+    border: 0; /* Убираем стандартную рамку */
+    outline: none; /* Убираем контур при фокусе */
+    border-bottom: 2px solid #9e9e9e; /* Добавляем полоску снизу */
+    font-size: 16px; /* Размер шрифта */
+    padding: 10px 0; /* Отступы сверху и снизу */
+    background: transparent; /* Прозрачный фон */
+    width: 100%; /* Ширина на весь контейнер */
+    box-sizing: border-box; /* Чтобы padding не влиял на ширину */
+    transition: border-color 0.3s; /* Плавный переход цвета рамки */
+}
+
+.fancy-input:focus {
+    border-bottom: 2px solid #26a69a; /* Цвет полоски при фокусе */
+}
+
+.passport-fields {
+    border-radius: 7px;
+    padding: 5px 10px 5px 5px;
+    border: 1px rgb(118, 118, 118) solid;
+}
+
+#pending .booking-container {
+    border: 1px solid #ff8100;
+}
+
+#confirmed .booking-container {
+    border: 1px solid #5d9545;
+}
+
+#ended .booking-container {
+    border: 1px solid #ddd;
+}
+
+#cancelled .booking-container {
+    border: 1px solid #d11010;
+}
+
+.color-square {
+    width: 40px; /* размер квадрата */
+    height: 40px; /* размер квадрата */
+    margin-right: 10px; /* отступ справа */
+    border-radius: 15px;
+}
+
+.square1 {
+    background-color: #ccebd1; /* цвет квадрата 1 */
+}
+
+.square2 {
+    background-color: #fb6c6c;
+}
+
+.square3 {
+    background-color: #313131;
+}
+
+.input-parent {
+    padding-bottom: 20px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.input,
+.input-inner {
+    max-width: 400px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.input-inner {
+    align-self: stretch;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 2px solid #acacac;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+
+.input {
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 122px;
+}
+
+.def-input-input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    font-family: Montserrat;
+    font-size: 17px;
+    background-color: transparent;
+    height: 20px;
+    flex: 1;
+    position: relative;
+    line-height: 20px;
+    color: #000;
+    text-align: left;
+    display: inline-block;
+    min-width: 216px;
+    max-width: 100%;
+    padding: 0;
+}
+
+.def-input-inner,
+.def-input {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    max-width: 100%;
+}
+
+.date-button {
+    height: 35px;
+    font-size: 18px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s
+}

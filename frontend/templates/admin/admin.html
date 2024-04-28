@@ -4,86 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Бронирования</title>
+    <link href=" https://cdn.jsdelivr.net/npm/air-datepicker@3.5.0/air-datepicker.min.css " rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/admin.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <style>
-        .logout-button {
-            height: 35px;
-            font-size: 18px;
-            padding: 5px 10px;
-            margin-right: 5px;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .booking-title {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .booking-container {
-            margin: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: Montserrat, serif;
-        }
-
-        .booking-description p {
-            line-height: 25px;
-            margin: 10px 0 10px 0;
-            font-family: Montserrat, serif;
-        }
-
-        .booking-status {
-            margin-bottom: 20px;
-        }
-
-        .booking-status h2 {
-            font-family: Montserrat, serif;
-        }
-
-        .booking-container button {
-            height: 35px;
-            font-size: 18px;
-            padding: 5px 10px;
-            margin-right: 5px;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .booking-container button:hover {
-            opacity: 0.8;
-        }
-
-        .confirm-button {
-            background-color: #6bb46c; /* Зеленый */
-        }
-
-        .cancel-button {
-            background-color: #f57b73; /* Красный */
-        }
-
-        .action-button {
-            padding-top: 15px;
-            display: flex;
-            gap: 10px;
-        }
-    </style>
+    <script src=" https://cdn.jsdelivr.net/npm/air-datepicker@3.5.0/air-datepicker.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js "></script>
 </head>
 <body style="font-family: Montserrat, serif;">
 <div style="display: flex; flex-direction: row; align-items: center; gap: 25px; justify-content: space-between;">
     <h2>Админ-панель</h2>
     <button class="logout-button"><a href="/logout">Выйти</a></button>
 </div>
-
+<div class="calendar">
+    <div class="calendar-frame" id="calendar"></div>
+</div>
+<div class="color-info" style="display: flex; flex-direction: row; gap: 20px; padding-top: 10px; flex-wrap: wrap;">
+    <div style="display: flex; flex-direction: row; align-items: center;">
+        <div class="color-square square1"></div>
+        <p style=" font-size: 17px;">- Дни текущего месяца доступные для брони</p>
+    </div>
+    <div style="display: flex; flex-direction: row; align-items: center;">
+        <div class="color-square square2"></div>
+        <p style=" font-size: 17px;">- Занятые дни. Бронирование невозможно</p>
+    </div>
+    <div style="display: flex; flex-direction: row; align-items: center;">
+        <div class="color-square square3"></div>
+        <p style=" font-size: 17px;">- Заблокированные дни из админ-панель.</p>
+    </div>
+</div>
+<p style="padding-top: 20px;"><b>Блокировка/разблокировка дат (Конец не включительно!!!!)</b></p>
+<div class="input-parent">
+    <div class="input">
+        <div class="input-inner">
+            <label for="firstDateInput">
+                <input class="def-input-input"
+                       id="firstDateInput"
+                       placeholder="Начало" type="text"
+                       disabled/>
+            </label>
+        </div>
+    </div>
+    <div class="input">
+        <div class="input-inner">
+            <label for="secondDateInput">
+                <input class="def-input-input"
+                       id="secondDateInput"
+                       placeholder="Конец" type="text"
+                       disabled/>
+            </label>
+        </div>
+    </div>
+    <div>
+        <button class="date-button" style="background-color: #000000" onclick=blockDate()>Заблокировать</button>
+        <button class="date-button" style="background-color: #000000" onclick=unlockDate()>Разблокировать</button>
+    </div>
+</div>
 <div id="pending" class="booking-status">
     <h2>Ожидают подтверждения</h2>
     <!-- Бронирования будут добавлены здесь -->
@@ -101,6 +77,59 @@
     <!-- Бронирования будут добавлены здесь -->
 </div>
 <script>
+    function addPassportFields(bookingId) {
+        const container1 = document.getElementById(`passportContainer_${bookingId}`);
+        const container2 = document.getElementById(`passportDiv_${bookingId}`);
+
+        const AlreadyCreatedPassportFields1 = container1.querySelectorAll('.passport-fields');
+        const AlreadyCreatedPassportFields2 = container2.querySelectorAll('.passport-fields');
+
+        const count1 = AlreadyCreatedPassportFields1.length;
+        const count2 = AlreadyCreatedPassportFields2.length;
+
+        let passportNumber = count1 + count2 + 1;
+
+        const passportFields = document.createElement('div');
+        passportFields.className = 'passport-fields';
+        passportFields.id = `${bookingId}-${passportNumber}`
+
+        axios.post(`/admin/passport/${bookingId}/${passportNumber}`)
+            .then(function (response) {
+                console.log(`Паспорт /${bookingId}/${passportNumber} добавлен:`, response.data);
+                // Обработка успешного запроса
+            })
+            .catch(function (error) {
+                console.error(`Ошибка при добавлении данных /${bookingId}/${passportNumber}:`, error);
+                // Обработка ошибки запроса
+            });
+
+        // Добавляем необходимые поля в соответствии с моделью Passports
+        passportFields.innerHTML = `
+        <div class="passport-title">
+        <p><b>Паспорт №${passportNumber}</b></p>
+        <img onclick="openPassport(${bookingId}, ${passportNumber})" style="width:25px; height: 30px;" src="../static/public/arrow-down-338-svgrepo-com.svg" alt="">
+        </div>
+        <div id="passportDescription_${bookingId}-${passportNumber}" class="passport-description" style="display: none">
+        <input data-passport-number="${passportNumber}" class="fancy-input" name="fio" placeholder="ФИО" type="text">
+        <input data-passport-number="${passportNumber}" class="fancy-input" name="granted" placeholder="Кем выдан" type="text">
+        <input data-passport-number="${passportNumber}" class="fancy-input" name="granted_date" placeholder="Дата выдачи" type="text">
+        <input data-passport-number="${passportNumber}" class="fancy-input" name="department_code" placeholder="Код подразделения" type="text">
+        <input data-passport-number="${passportNumber}" class="fancy-input" name="gender" placeholder="Пол" type="text">
+        <input data-passport-number="${passportNumber}" class="fancy-input" name="birth_date[]" placeholder="Дата рождения" type="text">
+        <input data-passport-number="${passportNumber}" class="fancy-input" name="address[]" placeholder="Адрес регистрации" type="text">
+        <input data-passport-number="${passportNumber}" class="fancy-input" name="birthplace[]" placeholder="Место рождения" type="text">
+        <input data-passport-number="${passportNumber}" class="fancy-input" name="series[]" placeholder="Серия" type="text">
+        <input data-passport-number="${passportNumber}" class="fancy-input" name="number[]" placeholder="Номер" type="text">
+        <button class="cancel-button" style="margin-top: 20px;" onclick="deletePassport(${bookingId}, ${passportNumber})">Удалить паспорт №${passportNumber}</button>
+        </div>
+`;
+
+        // Добавляем обертку с полями в контейнер
+        container2.appendChild(passportFields);
+        addEventListeners();
+    }
+</script>
+<script>
     axios.get('/admin/bookings')
         .then(function (response) {
             // Обращаемся к массиву bookings внутри полученного объекта
@@ -115,17 +144,67 @@
                         <img onclick="openDescription(${booking.id})" style="width:25px; height: 30px;" src="../static/public/arrow-down-338-svgrepo-com.svg" alt="">
                         </div>
                         <div id="bookingDescription_${booking.id}" class="booking-description" style="display: none">
-                        <p><b>Дата заезда:</b> ${booking.entry_date}</p>
-                        <p><b>Дата выезда:</b> ${booking.departure_date}</p>
-                        ${booking.details.name ? `<p><b>ФИО:</b> ${booking.details.name}</p>` : ''}
-                        ${booking.details.adults ? `<p><b>Взрослые:</b> ${booking.details.adults}</p>` : ''}
-                        ${booking.details.children ? `<p><b>Дети:</b> ${booking.details.children}</p>` : ''}
-                        ${booking.details.phone ? `<p><b>Телефон:</b> ${booking.details.phone}</p>` : ''}
-                        ${booking.details.email ? `<p><b>Email:</b> ${booking.details.email}</p>` : ''}
-                        <textarea data-booking-id="${booking.id}" style="height: 100px; width: 300px; font-size: 18px" placeholder="Комментарий">${booking.details.admin_comment.trim()}</textarea>
+                        <p><b>Дата заезда:</b> <input class="fancy-input" name="entry_date" value="${booking.entry_date}"></input></p>
+                        <p><b>Дата выезда:</b> <input class="fancy-input" name="departure_date" value="${booking.departure_date}"></input></p>
+                        ${booking.details.name ? `<p><b>ФИО:</b> <input class="fancy-input" name="name" value="${booking.details.name}"></input></p>` : ''}
+                        ${booking.details.adults ? `<p><b>Взрослые:</b> <input class="fancy-input" name="adults" value="${booking.details.adults}"></input></p>` : ''}
+                        ${booking.details.children ? `<p><b>Дети:</b> <input class="fancy-input" name="children" value="${booking.details.children}"></input></p>` : ''}
+                        ${booking.details.phone ? `<p><b>Телефон:</b> <input class="fancy-input" name="phone" value="${booking.details.phone}"></input></p>` : ''}
+                        ${booking.details.email ? `<p><b>Email:</b> <input class="fancy-input" name="email" value="${booking.details.email}"></input></p>` : ''}
+                        <textarea data-booking-id="${booking.id}" name="admin_comment" style="height: 100px; width: 99.6%; font-size: 18px" placeholder="Комментарий">${booking.details.admin_comment.trim()}</textarea>
+                        <div id="passportDiv_${booking.id}" style="display: flex; padding-top: 15px; gap: 10px; flex-direction: column;"></div>
                         </div>
                     `;
+                setTimeout(() => {
+                    booking.passports.forEach(function (passport) {
+                        const container = document.getElementById(`passportDiv_${passport.booking_id}`);
 
+                        const passportFields = document.createElement('div');
+                        passportFields.className = 'passport-fields';
+                        passportFields.id = `${passport.booking_id}-${passport.passport_number}`
+
+                        passportFields.innerHTML = `
+                                <div class="passport-title">
+                                <p><b>Паспорт №${passport.passport_number}</b></p>
+                                <img onclick="openPassport(${passport.booking_id}, ${passport.passport_number})" style="width:25px; height: 30px;" src="../static/public/arrow-down-338-svgrepo-com.svg" alt="">
+                                </div>
+                                <div id="passportDescription_${passport.booking_id}-${passport.passport_number}" class="passport-description" style="display: none">
+                                <input data-passport-number="${passport.passport_number}" class="fancy-input" value="${passport.fio || ''}" name="fio" placeholder="ФИО" type="text">
+                                <input data-passport-number="${passport.passport_number}" class="fancy-input" value="${passport.granted || ''}" name="granted" placeholder="Кем выдан" type="text">
+                                <input data-passport-number="${passport.passport_number}" class="fancy-input" value="${passport.granted_date || ''}" name="granted_date" placeholder="Дата выдачи" type="text">
+                                <input data-passport-number="${passport.passport_number}" class="fancy-input" value="${passport.department_code || ''}" name="department_code" placeholder="Код подразделения" type="text">
+                                <input data-passport-number="${passport.passport_number}" class="fancy-input" value="${passport.gender || ''}" name="gender" placeholder="Пол" type="text">
+                                <input data-passport-number="${passport.passport_number}" class="fancy-input" value="${passport.birth_date || ''}" name="birth_date" placeholder="Дата рождения" type="text">
+                                <input data-passport-number="${passport.passport_number}" class="fancy-input" value="${passport.birthplace || ''}" name="birthplace" placeholder="Место рождения" type="text">
+                                <input data-passport-number="${passport.passport_number}" class="fancy-input" value="${passport.series || ''}" name="series" placeholder="Серия" type="text">
+                                <input data-passport-number="${passport.passport_number}" class="fancy-input" value="${passport.number || ''}" name="number" placeholder="Номер" type="text">
+                                <button class="cancel-button" style="margin-top: 20px;" onclick="deletePassport(${passport.booking_id}, ${passport.passport_number})">Удалить паспорт №${passport.passport_number}</button>
+                                </div>
+                            `;
+                        container.appendChild(passportFields);
+                    });
+
+                    const divBookingDescription = document.getElementById(`bookingDescription_${booking.id}`);
+
+                    const passportContainer = document.createElement('div');
+                    passportContainer.id = `passportContainer_${booking.id}`;
+
+                    const addPassport = document.createElement('button')
+                    addPassport.type = 'button';
+                    addPassport.style.backgroundColor = '#3fa38c';
+                    addPassport.style.marginTop = '20px';
+                    addPassport.onclick = function () {
+                        addPassportFields(booking.id);
+                    };
+                    addPassport.innerHTML = 'Добавить паспорт'
+
+                    if (divBookingDescription) {
+                        divBookingDescription.appendChild(passportContainer);
+                        divBookingDescription.appendChild(addPassport);
+                    } else {
+                        console.error('Элемент для добавления кнопок не найден');
+                    }
+                }, 0);
                 if (booking.status === 'pending') {
                     const divButtons = document.createElement('div')
                     const confirmButton = document.createElement('button');
@@ -166,6 +245,7 @@
 
                     setTimeout(() => {
                         const divBookingDescription = document.getElementById(`bookingDescription_${booking.id}`);
+
                         if (divBookingDescription) {
                             divBookingDescription.appendChild(divButtons);
                         } else {
@@ -188,8 +268,8 @@
         });
 </script>
 <script>
-    function openDescription(booking_id) {
-        const bookingDescription = document.getElementById(`bookingDescription_${booking_id}`)
+    function openDescription(bookingId) {
+        const bookingDescription = document.getElementById(`bookingDescription_${bookingId}`);
         if (bookingDescription.style.display === "block") {
             bookingDescription.style.display = "none";
             return;
@@ -198,27 +278,178 @@
     }
 </script>
 <script>
-    setTimeout(() => {
-        const textareas = document.querySelectorAll('.booking-description textarea');
-        textareas.forEach(textarea => {
-            textarea.addEventListener('blur', function () {
-                const comment = textarea.value;
-                const bookingId = textarea.dataset.bookingId;
-                console.log(comment, bookingId);
-                axios.post(`/admin/add-comment/${bookingId}`, {
-                    comment: comment
-                })
-                    .then(function (response) {
-                        console.log('Комментарий отправлен:', response.data);
-                        // Обработка успешного запроса
+    function openPassport(bookingId, passportNumber) {
+        const passportDescription = document.getElementById(`passportDescription_${bookingId}-${passportNumber}`);
+        if (passportDescription.style.display === "block") {
+            passportDescription.style.display = "none";
+            return;
+        }
+        passportDescription.style.display = "block";
+    }
+</script>
+<script>
+    // Функция для добавления обработчиков событий к полям ввода и textarea
+    function addEventListeners() {
+        // Получаем все элементы textarea и input с классом fancy-input
+        const inputsAndTextareas = document.querySelectorAll('.booking-description textarea, .booking-description .fancy-input, .passport-description .fancy-input');
+        inputsAndTextareas.forEach(element => {
+            // Убедимся, что не добавляем обработчик событий более одного раза
+            if (!element.dataset.listenerAdded) {
+                element.addEventListener('blur', function () {
+                    const value = element.value;
+                    const bookingId = element.dataset.bookingId || element.closest('.booking-description').id.split('_')[1];
+                    const fieldName = element.name;
+                    let passportNumber;
+                    try {
+                        passportNumber = element.dataset.passportNumber || element.closest('.passport-description').id.split('_')[1];
+                    } catch (error) {
+                        passportNumber = 999999999;
+                    }
+
+                    console.log(fieldName, value, bookingId);
+                    // Отправляем POST-запрос на сервер
+                    axios.post(`/admin/update-booking/${bookingId}/${passportNumber}`, {
+                        [fieldName]: value
                     })
-                    .catch(function (error) {
-                        console.error('Ошибка при отправке комментария:', error);
-                        // Обработка ошибки запроса
-                    });
+                        .then(function (response) {
+                            console.log(`Данные ${fieldName} отправлены:`, response.data);
+                        })
+                        .catch(function (error) {
+                            console.error(`Ошибка при отправке данных ${fieldName}:`, error);
+                        });
+                });
+                // Отмечаем, что обработчик событий добавлен
+                element.dataset.listenerAdded = 'true';
+            }
+        });
+    }
+
+    setTimeout(addEventListeners, 300);
+</script>
+<script>
+    function deletePassport(bookingId, passportNumber) {
+        const passportField = document.getElementById(`${bookingId}-${passportNumber}`);
+        passportField.remove();
+
+        axios.delete(`/admin/passport/${bookingId}/${passportNumber}`)
+            .then(function (response) {
+                console.log(`Паспорт /${bookingId}/${passportNumber} удален:`, response.data);
+                // Обработка успешного запроса
+            })
+            .catch(function (error) {
+                console.error(`Ошибка при удалении данных /${bookingId}/${passportNumber}:`, error);
+                // Обработка ошибки запроса
+            });
+    }
+</script>
+<script>
+    axios.get('/free-dates')
+        .then(function (response) {
+            const dateStrings = response.data.dates;
+
+            const disabledDates = dateStrings.map(dateStr => new Date(dateStr));
+
+            const isDisabledDateIsInRange = ({date, datepicker}) => {
+                const selectedDate = datepicker.selectedDates[0];
+                if (selectedDate && datepicker.selectedDates.length === 1) {
+                    const sortedDates = [selectedDate, date].sort((a, b) => a - b);
+
+                    return disabledDates.some(disabledDate =>
+                        dateFns.isWithinInterval(disabledDate, {
+                            start: sortedDates[0],
+                            end: sortedDates[1]
+                        })
+                    );
+                }
+                return false;
+            }
+
+            new AirDatepicker('#calendar', {
+                inline: true,
+                range: true,
+                minDate: new Date(),
+                onBeforeSelect: ({date, datepicker}) => {
+                    // Не даем выбрать дату, если недопустимая дата в диапазоне
+                    return !isDisabledDateIsInRange({date, datepicker});
+                },
+                onFocus: ({date, datepicker}) => {
+                    if (isDisabledDateIsInRange({
+                        date,
+                        datepicker
+                    }) || disabledDates.some(disabledDate => dateFns.isEqual(date, disabledDate))) {
+                        datepicker.$datepicker.classList.add('-disabled-range-')
+                    } else {
+                        datepicker.$datepicker.classList.remove('-disabled-range-')
+                    }
+                },
+                onRenderCell: ({date}) => {
+                    if (disabledDates.some(disabledDate => date.toLocaleDateString() === disabledDate.toLocaleDateString())) {
+                        return {
+                            disabled: true,
+                            classes: "-booked-"
+                        }
+                    }
+                },
+                onSelect: function (fd, date, picker) {
+                    let selectedDates = fd["formattedDate"];
+                    if (selectedDates.length >= 2) {
+                        // Сортируем даты от самой ранней до самой поздней
+                        selectedDates.sort(function (a, b) {
+                            return a - b
+                        });
+
+                        let firstDate = selectedDates[0]; // первая выбранная дата
+                        let lastDate = selectedDates[selectedDates.length - 1]; // последняя выбранная дата
+
+                        // Получаем элементы полей ввода
+                        let firstInput = document.getElementById("firstDateInput");
+                        let secondInput = document.getElementById("secondDateInput");
+
+                        firstInput.parentNode.parentNode.style.border = '2px solid #acacac';
+                        secondInput.parentNode.parentNode.style.border = '2px solid #acacac';
+
+                        // Преобразовываем выбранные даты в строку и устанавливаем значения полей ввода
+                        firstInput.value = firstDate;
+                        secondInput.value = lastDate;
+                    }
+                }
             });
         })
-    }, 10)
+</script>
+<script>
+    function blockDate() {
+        let firstInput = document.getElementById("firstDateInput");
+        let secondInput = document.getElementById("secondDateInput");
+
+        const data = {}
+        data["firstDate"] = firstInput.value;
+        data["secondDate"] = secondInput.value;
+
+        axios.post(`/admin/date/block`, data)
+            .then(function (response) {
+                console.log(`Даты разблокированы:`, response.data);
+            })
+            .catch(function (error) {
+                console.error(`Ошибка:`, error);
+            });
+    }
+
+    function unlockDate() {
+        let firstInput = document.getElementById("firstDateInput");
+        let secondInput = document.getElementById("secondDateInput");
+
+        const data = {}
+        data["firstDate"] = firstInput.value;
+        data["secondDate"] = secondInput.value;
+
+        axios.post(`/admin/date/unlock`, data)
+            .then(function (response) {
+                console.log(`Даты разблокированы:`, response.data);
+            })
+            .catch(function (error) {
+                console.error(`Ошибка:`, error);
+            });
+    }
 </script>
 </body>
 </html>

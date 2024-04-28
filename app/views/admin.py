@@ -2,8 +2,9 @@ from flask import render_template, request, redirect, session, url_for, Response
 from flask_login import login_user, login_required, logout_user, current_user, UserMixin
 
 from app import db, login_manager
-from app.models import Bookings, Details
+from app.models import Bookings, Details, Passports
 
+from sqlalchemy import and_
 import json
 
 admins = Blueprint('admin', __name__)
@@ -53,6 +54,8 @@ def get_bookings():
 
     for booking in all_bookings:
         details = Details.query.filter_by(booking_id=booking.id).first()
+        passports = Passports.query.filter_by(booking_id=booking.id).all()
+
         booking_data = {
             'id': booking.id,
             'entry_date': booking.entry_date,
@@ -66,10 +69,28 @@ def get_bookings():
                 'phone': details.phone,
                 'email': details.email,
                 'admin_comment': details.admin_comment.strip()
-            } if details else {}
+            } if details else {},
+            'passports': [
+                {
+                    'id': passport.id,
+                    'booking_id': passport.booking_id,
+                    'passport_number': passport.passport_number,
+                    'fio': passport.fio,
+                    'granted': passport.granted,
+                    'granted_date': passport.granted_date,
+                    'department_code': passport.department_code,
+                    'gender': passport.gender,
+                    'birth_date': passport.birth_date,
+                    'birthplace': passport.birthplace,
+                    'series': passport.series,
+                    'number': passport.number,
+                } for passport in passports
+            ]
         }
 
         bookings_with_details.append(booking_data)
+
+    bookings_with_details = list(reversed(bookings_with_details))
 
     response = {
         "status": 200,
@@ -105,17 +126,63 @@ def cancel(booking_id):
     return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')
 
 
-@admins.route("/admin/add-comment/<int:booking_id>", methods=['POST'])
+@admins.route("/admin/end/<int:booking_id>", methods=['POST'])
 @login_required
-def add_comment(booking_id):
-    comment = request.json["comment"]
+def end(booking_id):
+    booking = Bookings.query.get(booking_id)
+    booking.status = "ended"
 
-    booking_details = Details.query.filter_by(booking_id=booking_id).first()
-    booking_details.admin_comment = comment
-
-    db.session.add(booking_details)
+    db.session.add(booking)
     db.session.commit()
 
     response = {"status": 200}
     return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')
 
+
+@admins.route("/admin/update-booking/<int:booking_id>/<int:passport_number>", methods=['POST'])
+@login_required
+def add_comment(booking_id, passport_number):
+    field_key = list(dict(request.json).keys())[0]
+    field_value = request.json[field_key]
+
+    if field_key in ["entry_date", "departure_date"]:
+        booking = Bookings.query.get(booking_id)
+        setattr(booking, field_key, field_value)
+    elif field_key in ["name", "adults", "children", "phone", "email", "admin_comment"]:
+        booking_details = Details.query.filter_by(booking_id=booking_id).first()
+        setattr(booking_details, field_key, field_value)
+    else:
+        passport = Passports.query.filter(
+            and_(Passports.booking_id == booking_id, Passports.passport_number == passport_number)
+        ).first()
+        setattr(passport, field_key, field_value)
+
+    db.session.commit()
+
+    response = {"status": 200}
+    return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')
+
+
+@admins.route("/admin/passport/<int:booking_id>/<int:passport_number>", methods=['DELETE'])
+def del_passport(booking_id, passport_number):
+    passport = Passports.query.filter(
+        and_(Passports.booking_id == booking_id, Passports.passport_number == passport_number)
+    ).first()
+
+    if passport:
+        db.session.delete(passport)
+        db.session.commit()
+
+    response = {"status": 200}
+    return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')
+
+
+@admins.route("/admin/passport/<int:booking_id>/<int:passport_number>", methods=['POST'])
+def add_passport(booking_id, passport_number):
+    new_passport = Passports(booking_id=booking_id, passport_number=passport_number)
+
+    db.session.add(new_passport)
+    db.session.commit()
+
+    response = {"status": 200}
+    return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')

@@ -86,6 +86,23 @@
     color: #000000;
 }
 
+.air-datepicker-cell.-day-.-admin-blocked-.-focus-.-selected-.-range-from-.-range-to- {
+    background: #5cc4ef;
+}
+
+.air-datepicker-cell.-day-.-admin-blocked-.-selected-.-range-from- {
+    background: #5cc4ef;
+}
+
+.air-datepicker-cell.-day-.-admin-blocked-.-selected-.-range-to- {
+    background: #5cc4ef;
+}
+
+.air-datepicker-cell.-day-.-admin-blocked-.-in-range- {
+    background: rgba(92, 196, 239, 0.1);
+    color: #4a4a4a;
+}
+
 .logout-button {
     height: 35px;
     font-size: 18px;

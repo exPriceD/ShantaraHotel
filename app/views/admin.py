@@ -7,6 +7,8 @@ from app.models import Bookings, Details, Passports, BlockedDate
 from app.utils import get_current_date, format_date
 
 from sqlalchemy import and_
+from sqlalchemy.orm.exc import UnmappedInstanceError
+
 from datetime import timedelta, datetime
 import json
 
@@ -202,8 +204,11 @@ def block_dates():
     filtered_dates = [date.strftime('%d.%m.%Y') for date in date_range if date >= current_date]
 
     for date in filtered_dates:
-        new_blocked_date = BlockedDate(date=date)
-        db.session.add(new_blocked_date)
+        try:
+            new_blocked_date = BlockedDate(date=date)
+            db.session.add(new_blocked_date)
+        except UnmappedInstanceError:
+            pass
 
     db.session.commit()
 

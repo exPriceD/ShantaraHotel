@@ -75,6 +75,11 @@
     color: #fff;
 }
 
+.air-datepicker-cell.-day-.-admin-blocked- {
+    background-color: #313131;
+    color: #fff;
+}
+
 .air-datepicker-cell.-day-.-disabled-.-booked-.-in-range- {
     background: var(--adp-cell-background-color-in-range);
     border-radius: 0;

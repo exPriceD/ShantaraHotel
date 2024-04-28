@@ -2,9 +2,12 @@ from flask import render_template, request, redirect, session, url_for, Response
 from flask_login import login_user, login_required, logout_user, current_user, UserMixin
 
 from app import db, login_manager
-from app.models import Bookings, Details, Passports
+from app.models import Bookings, Details, Passports, BlockedDate
+
+from app.utils import get_current_date, format_date
 
 from sqlalchemy import and_
+from datetime import timedelta, datetime
 import json
 
 admins = Blueprint('admin', __name__)
@@ -182,6 +185,44 @@ def add_passport(booking_id, passport_number):
     new_passport = Passports(booking_id=booking_id, passport_number=passport_number)
 
     db.session.add(new_passport)
+    db.session.commit()
+
+    response = {"status": 200}
+    return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')
+
+
+@admins.route("/admin/date/block", methods=['POST'])
+def block_dates():
+    start_date = datetime.strptime(request.json["firstDate"], "%d.%m.%Y")
+    end_date = datetime.strptime(request.json["secondDate"], "%d.%m.%Y")
+
+    date_range = [start_date + timedelta(days=x) for x in range((end_date - start_date).days)]
+
+    current_date = datetime.strptime(get_current_date(return_time=False), '%d.%m.%Y')
+    filtered_dates = [date.strftime('%d.%m.%Y') for date in date_range if date >= current_date]
+
+    for date in filtered_dates:
+        new_blocked_date = BlockedDate(date=date)
+        db.session.add(new_blocked_date)
+
+    db.session.commit()
+
+    response = {"status": 200}
+    return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')
+
+
+@admins.route("/admin/date/unlock", methods=['POST'])
+def unlock_dates():
+    start_date = datetime.strptime(request.json["firstDate"], "%d.%m.%Y")
+    end_date = datetime.strptime(request.json["secondDate"], "%d.%m.%Y")
+
+    date_range = [start_date + timedelta(days=x) for x in range((end_date - start_date).days)]
+    date_range = [date.strftime('%d.%m.%Y') for date in date_range]
+
+    for date in date_range:
+        blocked_date = BlockedDate.query.filter_by(date=date).first()
+        db.session.delete(blocked_date)
+
     db.session.commit()
 
     response = {"status": 200}

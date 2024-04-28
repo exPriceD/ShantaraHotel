@@ -346,8 +346,10 @@
     axios.get('/free-dates')
         .then(function (response) {
             const dateStrings = response.data.dates;
+            const dateStringsBlocked = response.data.blocked_dates;
 
             const disabledDates = dateStrings.map(dateStr => new Date(dateStr));
+            const disabledDatesBlocked = dateStringsBlocked.map(dateStr => new Date(dateStr));
 
             const isDisabledDateIsInRange = ({date, datepicker}) => {
                 const selectedDate = datepicker.selectedDates[0];
@@ -388,6 +390,11 @@
                             disabled: true,
                             classes: "-booked-"
                         }
+                    } else if (disabledDatesBlocked.some(disabledDate => date.toLocaleDateString() === disabledDate.toLocaleDateString())) {
+                        return {
+                            disabled: false,
+                            classes: "-admin-blocked-"
+                        }
                     }
                 },
                 onSelect: function (fd, date, picker) {
@@ -427,7 +434,7 @@
 
         axios.post(`/admin/date/block`, data)
             .then(function (response) {
-                console.log(`Даты разблокированы:`, response.data);
+                console.log(`Даты заблокированы:`, response.data);
             })
             .catch(function (error) {
                 console.error(`Ошибка:`, error);

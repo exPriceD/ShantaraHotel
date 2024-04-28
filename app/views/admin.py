@@ -225,8 +225,11 @@ def unlock_dates():
     date_range = [date.strftime('%d.%m.%Y') for date in date_range]
 
     for date in date_range:
-        blocked_date = BlockedDate.query.filter_by(date=date).first()
-        db.session.delete(blocked_date)
+        try:
+            new_blocked_date = BlockedDate(date=date)
+            db.session.add(new_blocked_date)
+        except UnmappedInstanceError:
+            pass
 
     db.session.commit()
 

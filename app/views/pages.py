@@ -91,9 +91,9 @@ def get_free_dates():
     filtered_dates = [format_date(date) for date in overlapping_dates if date >= current_date]
 
     blocked_dates = BlockedDate.query.all()
-    filtered_blocked_dates = [format_date(date) for date in blocked_dates if date >= current_date]
 
-    filtered_dates.extend(filtered_blocked_dates)
+    filtered_blocked_dates = [format_date(datetime.strptime(date.date, "%d.%m.%Y")) for date in blocked_dates if
+                              datetime.strptime(date.date, "%d.%m.%Y") >= current_date]
 
-    response = {"status": 200, "dates": filtered_dates}
+    response = {"status": 200, "dates": filtered_dates, "blocked_dates": filtered_blocked_dates}
     return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')

@@ -387,15 +387,19 @@
     axios.get('/free-dates')
         .then(function (response) {
             const dateStrings = response.data.dates;
+            const dateStringsBlocked = response.data.blocked_dates;
 
             const disabledDates = dateStrings.map(dateStr => new Date(dateStr));
+            const disabledDatesBlocked = dateStringsBlocked.map(dateStr => new Date(dateStr));
+
+            const allDisabledDates = disabledDates.concat(disabledDatesBlocked);
 
             const isDisabledDateIsInRange = ({date, datepicker}) => {
                 const selectedDate = datepicker.selectedDates[0];
                 if (selectedDate && datepicker.selectedDates.length === 1) {
                     const sortedDates = [selectedDate, date].sort((a, b) => a - b);
 
-                    return disabledDates.some(disabledDate =>
+                    return allDisabledDates.some(disabledDate =>
                         dateFns.isWithinInterval(disabledDate, {
                             start: sortedDates[0],
                             end: sortedDates[1]
@@ -417,14 +421,14 @@
                     if (isDisabledDateIsInRange({
                         date,
                         datepicker
-                    }) || disabledDates.some(disabledDate => dateFns.isEqual(date, disabledDate))) {
+                    }) || allDisabledDates.some(disabledDate => dateFns.isEqual(date, disabledDate))) {
                         datepicker.$datepicker.classList.add('-disabled-range-')
                     } else {
                         datepicker.$datepicker.classList.remove('-disabled-range-')
                     }
                 },
                 onRenderCell: ({date}) => {
-                    if (disabledDates.some(disabledDate => date.toLocaleDateString() === disabledDate.toLocaleDateString())) {
+                    if (allDisabledDates.some(disabledDate => date.toLocaleDateString() === disabledDate.toLocaleDateString())) {
                         return {
                             disabled: true,
                             classes: "-booked-"

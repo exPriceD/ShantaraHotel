@@ -1,5 +1,6 @@
 from datetime import datetime
 import pytz
+import requests
 
 
 def get_current_date(timezone='Europe/Moscow', return_time=True):
@@ -15,3 +16,13 @@ def format_date(date_obj):
     formatted_date = date_obj.strftime('20%y-%m-%dT00:00:00')
 
     return formatted_date
+
+
+def send_notification(message):
+    bot_token = "7075215827:AAH00pYLrJfuolLP46WnWIln3TwcvNDUA7s"
+    method = "sendMessage"
+    url = f"https://api.telegram.org/bot{bot_token}/{method}"
+    chat_id = 903755276
+    tg_data = {"chat_id": chat_id, "text": message}
+    req = requests.post(url, data=tg_data)
+    return req

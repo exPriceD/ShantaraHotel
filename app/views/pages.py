@@ -1,11 +1,13 @@
 from flask import render_template, request, jsonify, Blueprint, Response
 
 from app import db
-from app.models import Bookings, Details
+from app.models import Bookings, Details, BlockedDate
 from app.schemas import BookingSchema
 
 from app.utils import get_current_date, format_date
 from marshmallow import ValidationError
+
+from app.utils import send_notification
 
 from datetime import datetime, timedelta
 from collections import Counter
@@ -55,6 +57,9 @@ def booking():
     db.session.add(new_details)
     db.session.commit()
 
+    message = f"Новое бронирование от {date_now}"
+    send_notification(message=message)
+
     return jsonify({'status': 200, 'message': 'Booking'})
 
 
@@ -84,7 +89,11 @@ def get_free_dates():
 
     current_date = datetime.strptime(get_current_date(return_time=False), '%d.%m.%Y')
     filtered_dates = [format_date(date) for date in overlapping_dates if date >= current_date]
-    print(filtered_dates)
+
+    blocked_dates = BlockedDate.query.all()
+    filtered_blocked_dates = [format_date(date) for date in blocked_dates if date >= current_date]
+
+    filtered_dates.extend(filtered_blocked_dates)
 
     response = {"status": 200, "dates": filtered_dates}
     return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')

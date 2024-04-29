@@ -41,7 +41,7 @@
                 <input class="def-input-input"
                        id="firstDateInput"
                        placeholder="Начало" type="text"
-                       disabled/>
+                       />
             </label>
         </div>
     </div>
@@ -51,7 +51,7 @@
                 <input class="def-input-input"
                        id="secondDateInput"
                        placeholder="Конец" type="text"
-                       disabled/>
+                       />
             </label>
         </div>
     </div>
@@ -144,8 +144,8 @@
                         <img onclick="openDescription(${booking.id})" style="width:25px; height: 30px;" src="../static/public/arrow-down-338-svgrepo-com.svg" alt="">
                         </div>
                         <div id="bookingDescription_${booking.id}" class="booking-description" style="display: none">
-                        <p><b>Дата заезда:</b> <input class="fancy-input" name="entry_date" value="${booking.entry_date}"></input></p>
-                        <p><b>Дата выезда:</b> <input class="fancy-input" name="departure_date" value="${booking.departure_date}"></input></p>
+                        <p><b>Дата заезда:</b> <input class="fancy-input" name="entry_date" value="${booking.entry_date}"></input><label id="entry_date_${booking.id}" style="display: none">Пересечение бронирований</label></p>
+                        <p><b>Дата выезда:</b> <input class="fancy-input" name="departure_date" value="${booking.departure_date}"></input><label id="departure_date_${booking.id}" style="display: none">Пересечение бронирований</label></p>
                         ${booking.details.name ? `<p><b>ФИО:</b> <input class="fancy-input" name="name" value="${booking.details.name}"></input></p>` : ''}
                         ${booking.details.adults ? `<p><b>Взрослые:</b> <input class="fancy-input" name="adults" value="${booking.details.adults}"></input></p>` : ''}
                         ${booking.details.children ? `<p><b>Дети:</b> <input class="fancy-input" name="children" value="${booking.details.children}"></input></p>` : ''}
@@ -315,6 +315,18 @@
                             console.log(`Данные ${fieldName} отправлены:`, response.data);
                         })
                         .catch(function (error) {
+                            element.style.borderBottom = '2px solid #ff0000'
+                            element.style.color = '#ff0000';
+
+                            const errText = document.getElementById(`${fieldName}_${bookingId}`)
+                            errText.style.color = '#ff0000';
+                            errText.style.display = 'block'
+
+                            element.addEventListener('focus', function () {
+                                element.style.borderBottom = '2px solid #9e9e9e'
+                                element.style.color = '#000';
+                                errText.style.display = 'none'
+                            });
                             console.error(`Ошибка при отправке данных ${fieldName}:`, error);
                         });
                 });
@@ -438,13 +450,22 @@
                 const selectedCells = document.querySelectorAll('.air-datepicker-cell.-selected-');
                 const inRangeCells = document.querySelectorAll('.air-datepicker-cell.-in-range-');
 
-                selectedCells.forEach(cell => {
-                    cell.style.backgroundColor = '#313131'; // Замените на желаемый цвет фона
-                });
+                selectedCells[0].style.backgroundColor = '#313131';
+                selectedCells[0].style.color = '#fff';
 
                 inRangeCells.forEach(cell => {
-                    cell.style.backgroundColor = '#313131'; // Замените на желаемый цвет фона
+                    cell.style.backgroundColor = '#313131';
                     cell.style.color = '#fff'
+                });
+
+                if (document.activeElement) {
+                    document.activeElement.blur();
+                }
+
+                const selectedElements = document.querySelectorAll('.-selected-, .-range-to-, .-range-from-, .-in-range');
+                console.log(selectedElements);
+                selectedElements.forEach(element => {
+                    element.classList.remove('-selected-', '-range-to-', '-range-from-', '-in-range');
                 });
             })
             .catch(function (error) {

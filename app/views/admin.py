@@ -6,8 +6,8 @@ from app.models import Bookings, Details, Passports, BlockedDate
 
 from app.utils import get_current_date, format_date
 
-from sqlalchemy import and_
-from sqlalchemy.orm.exc import UnmappedInstanceError
+from sqlalchemy import and_, or_
+from sqlalchemy.orm.exc import UnmappedInstanceError, NoResultFound
 
 from datetime import timedelta, datetime
 import json
@@ -152,7 +152,19 @@ def add_comment(booking_id, passport_number):
 
     if field_key in ["entry_date", "departure_date"]:
         booking = Bookings.query.get(booking_id)
-        setattr(booking, field_key, field_value)
+
+        if field_key == "entry_date":
+            start_date = field_value
+            end_date = booking.departure_date
+        else:
+            start_date = booking.departure_date
+            end_date = field_value
+
+        if can_change_booking(booking.id, start_date, end_date):
+            setattr(booking, field_key, field_value)
+        else:
+            response = {"status": 400}
+            return Response(response=json.dumps(response, ensure_ascii=False), status=400, mimetype='application/json')
     elif field_key in ["name", "adults", "children", "phone", "email", "admin_comment"]:
         booking_details = Details.query.filter_by(booking_id=booking_id).first()
         setattr(booking_details, field_key, field_value)
@@ -226,8 +238,8 @@ def unlock_dates():
 
     for date in date_range:
         try:
-            new_blocked_date = BlockedDate(date=date)
-            db.session.add(new_blocked_date)
+            blocked_date = BlockedDate.query.filter_by(date=date).first()
+            db.session.delete(blocked_date)
         except UnmappedInstanceError:
             pass
 
@@ -235,3 +247,40 @@ def unlock_dates():
 
     response = {"status": 200}
     return Response(response=json.dumps(response, ensure_ascii=False), status=200, mimetype='application/json')
+
+
+def can_change_booking(booking_id, new_entry_date_str, new_departure_date_str):
+    new_entry_date = datetime.strptime(str(new_entry_date_str), '%d.%m.%Y')
+    new_departure_date = datetime.strptime(str(new_departure_date_str), '%d.%m.%Y')
+
+    overlapping_bookings = Bookings.query.filter(and_(
+        Bookings.id != booking_id, or_(Bookings.status == 'confirmed', Bookings.status == 'pending')
+    )
+    ).all()
+
+    current_date = new_entry_date
+    while current_date < new_departure_date:
+        bookings_count = 0
+        for booking in overlapping_bookings:
+            booking_entry_date = datetime.strptime(booking.entry_date, '%d.%m.%Y')
+            booking_departure_date = datetime.strptime(booking.departure_date, '%d.%m.%Y')
+
+            if booking_entry_date <= current_date < booking_departure_date:
+                bookings_count += 1
+
+        if bookings_count >= 2:
+            return False
+        current_date += timedelta(days=1)
+
+    departure_day_bookings = 0
+    for booking in overlapping_bookings:
+        booking_entry_date = datetime.strptime(booking.entry_date, '%d.%m.%Y')
+        booking_departure_date = datetime.strptime(booking.departure_date, '%d.%m.%Y')
+
+        if booking_entry_date == current_date:
+            departure_day_bookings += 1
+
+    if departure_day_bookings >= 2:
+        return False
+
+    return True

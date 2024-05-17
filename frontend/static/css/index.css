@@ -1141,6 +1141,9 @@ li .img {
     .text {
         font-size: 26px;
     }
+    .input-container-parent {
+        overflow: scroll;
+    }
 }
 
 @media screen and (max-width: 750px) {
@@ -1198,11 +1201,13 @@ li .img {
     }
 
 }
+
 @media screen and (max-width: 640px) {
     #img-slider {
         width: 500px;
         height: 350px;
     }
+
     .slider-image {
         height: 350px;
         width: 500px;
@@ -1214,40 +1219,50 @@ li .img {
         width: 400px;
         height: 300px;
     }
+
     .slider-image {
         height: 300px;
         width: 400px;
     }
+
     .addres-parent {
         flex-direction: column;
         align-items: flex-start;
         gap: 15px;
     }
+
     .frame-parent {
         gap: 133px;
     }
 }
+
 @media screen and (max-width: 440px) {
     #img-slider {
         width: 350px;
         height: 275px;
     }
+
     .slider-image {
         height: 275px;
         width: 350px;
     }
+
     .addres-parent {
         font-size: 16px;
     }
+
     .area-people {
         justify-content: center;
     }
+
     .shantara-hotel {
         font-size: 30px;
     }
+
     .hiide-houses-logo {
         flex-direction: column;
     }
+
     .h31 {
         font-size: 18px;
     }
@@ -1287,6 +1302,7 @@ li .img {
 }
 
 .h22 {
+    padding-left: 45px;
     margin: 0;
     align-self: stretch;
     position: relative;
@@ -1296,13 +1312,13 @@ li .img {
 }
 
 .wrapper {
-    width: 186px;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: center;
     padding: 3px 0 0;
     box-sizing: border-box;
+    align-items: center;
 }
 
 .phosphor-icons-x {
@@ -1312,7 +1328,7 @@ li .img {
 }
 
 .input-container {
-    width: 560px;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -1338,6 +1354,8 @@ li .img {
     align-self: stretch;
     position: relative;
     line-height: 20px;
+    display: flex;
+    flex-direction: row;
 }
 
 .info-block h2 {
@@ -1345,7 +1363,6 @@ li .img {
 }
 
 .info-block p {
-    font-size: 17px;
     margin: 10px 0 10px 0;
 }
 
@@ -1879,12 +1896,17 @@ li .img {
     width: 100%;
 }
 
+.booking-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+}
 .input-container-parent {
     width: 994px;
     position: relative;
     border-radius: 15px;
     background-color: #fff;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -1901,33 +1923,18 @@ li .img {
     font-family: Montserrat;
 }
 
-@media screen and (max-width: 830px) {
-    .image-23-parent {
-        flex: 1;
-    }
-
-    .frame-parent1 {
-        flex-wrap: wrap;
-    }
+.square-text1 {
+    width: 420px;
+    font-size: 17px;
 }
 
-@media screen and (max-width: 675px) {
-    .image-23-parent {
-        min-width: 100%;
-    }
+.square-text2 {
+    width: 430px;
+    font-size: 17px;
 }
 
-@media screen and (max-width: 450px) {
-    .h22 {
-        font-size: 19px;
-    }
-
-    .input-group,
-    .input-inner7,
-    .input-inner8,
-    .input-parent {
-        flex-wrap: wrap;
-    }
+.zaezd-info {
+    padding-left: 20px;
 }
 
 .image-23 {
@@ -2070,17 +2077,149 @@ li .img {
 .komnats-descriptions li {
     margin: 10px 0 5px 0;
 }
+
 .line {
-    width:100%;
+    width: 100%;
     height: 5px;
     background-color: #7d5835;
     border-radius: 5px;
 }
+
 .desc-image {
     width: 50%;
 }
+
 .desc-text {
     width: 50%;
+}
+
+.upper {
+    display: none;
+}
+.down {
+    display: flex;
+}
+
+@media screen and (max-width: 850px) {
+    .frame-parent1 {
+        flex-wrap: wrap;
+    }
+
+    .input-container-parent {
+        width: 520px;
+    }
+
+    .square-text1 {
+        font-size: 15px;
+    }
+
+    .frame-wrapper {
+        padding: 0;
+    }
+
+    .square-text2 {
+        font-size: 15px;
+    }
+
+    .info-block {
+        flex-direction: column;
+    }
+
+    .info-block h2 {
+        font-size: 19px;
+    }
+
+    .info-block div div ul li {
+        font-size: 15px;
+    }
+
+    .info-block div ul li {
+        font-size: 15px;
+    }
+
+    .zaezd-info {
+        padding-left: 0;
+    }
+
+    .def-input-input {
+        font-size: 15px;
+    }
+    .air-datepicker-nav {
+        height: 50px;
+    }
+    .upper {
+        display: flex;
+    }
+    .down {
+        display: none;
+    }
+    .calendar {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .air-datepicker-body--cells {
+        height: 100%;
+        font-size: 21px;
+        padding: 10px 10px 10px 10px;
+    }
+
+    .air-datepicker-cell {
+        height: 40px;
+        width: 100%;
+        background-color: #ccebd1;
+        border-radius: 0;
+    }
+    .image-23-parent {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .air-datepicker-body--cells {
+        height: 100%;
+        font-size: 19px;
+        padding: 0;
+    }
+
+    .air-datepicker-cell {
+        height: 36px;
+        width: 100%;
+        background-color: #ccebd1;
+        border-radius: 0;
+    }
+    .image-23-parent {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+    .icon-set-for-phosphor {
+        gap: 17px;
+    }
+    .input-container-parent {
+        padding: 13px;
+    }
+    .air-datepicker-nav {
+        height: 45px;
+    }
+    .air-datepicker-nav--title {
+        font-size: 19px;
+    }
+}
+@media screen and (max-width: 450px) {
+    .h22 {
+        font-size: 19px;
+    }
+
+    .input-group,
+    .input-inner7,
+    .input-inner8,
+    .input-parent {
+        flex-wrap: wrap;
+    }
 }
 
 

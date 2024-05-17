@@ -251,8 +251,20 @@
         </div>
         <section id="booking-form" class="frame-wrapper">
             <div class="frame-parent1">
-                <div class="image-23-parent">
-                    <div class="image-23" id="calen"></div>
+                <div class="calendar">
+                    <div class="image-23-parent">
+                        <div class="image-23" id="calen"></div>
+                    </div>
+                    <div class="booking-info upper">
+                        <div style="display: flex; flex-direction: row; align-items: center;">
+                            <div class="color-square square1"></div>
+                            <p class="square-text1">- Дни текущего месяца доступные для брони</p>
+                        </div>
+                        <div style="display: flex; flex-direction: row; align-items: center;">
+                            <div class="color-square square2"></div>
+                            <p class="square-text2">- Занятые дни. Бронирование невозможно</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="icon-set-for-phosphor-parent">
                     <div class="icon-set-for-phosphor">
@@ -340,17 +352,16 @@
                     </div>
                 </div>
             </div>
-            <div class="info-block" style="display: flex; flex-direction: row;">
-                <div style="">
-                    <div class="booking-info"
-                         style="display: flex; flex-direction: column; gap: 10px; padding-top: 10px;">
+            <div class="info-block">
+                <div>
+                    <div class="booking-info down">
                         <div style="display: flex; flex-direction: row; align-items: center;">
                             <div class="color-square square1"></div>
-                            <p style="width: 420px; font-size: 17px;">- Дни текущего месяца доступные для брони</p>
+                            <p class="square-text1">- Дни текущего месяца доступные для брони</p>
                         </div>
                         <div style="display: flex; flex-direction: row; align-items: center;">
                             <div class="color-square square2"></div>
-                            <p style="width: 430px; font-size: 17px;">- Занятые дни. Бронирование невозможно</p>
+                            <p class="square-text2">- Занятые дни. Бронирование невозможно</p>
                         </div>
                     </div>
                     <div style="display: flex; flex-direction: column; width: 300px; padding-top: 15px;">
@@ -361,7 +372,7 @@
                         </ul>
                     </div>
                 </div>
-                <div style="padding-left: 20px;">
+                <div class="zaezd-info">
                     <h2>Заселение и выселение</h2>
                     <ul>
                         <li>Заселение после 14:00</li>

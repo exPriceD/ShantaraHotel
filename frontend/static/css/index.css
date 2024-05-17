@@ -947,9 +947,9 @@ li .img {
 .h2 {
     margin: 0;
     font-size: 22px;
-    font-weight: 400;
+    font-weight: 600;
     font-family: inherit;
-    color: #7d5835;
+    color: #9f7349;
 }
 
 .email,
@@ -1004,7 +1004,6 @@ li .img {
 }
 
 .refrigerator-symbol-parent {
-    width: 271px;
     gap: 40px;
     min-width: 271px;
 }
@@ -1112,6 +1111,60 @@ li .img {
     width: 600px;
 }
 
+.komnats {
+    flex-direction: column;
+    width: 1150px;
+    gap: 25px
+}
+
+.komnats-descriptions {
+    text-align: left;
+    font-size: 22px;
+}
+
+.komnats-descriptions h5 {
+    color: #7d5835;
+    font-size: 24px;
+    margin: 10px 0 10px 0;
+}
+
+.komnats-descriptions ul {
+    padding-inline-start: 30px;
+    margin: 10px 0 10px 0;
+}
+
+.komnats-descriptions li {
+    margin: 10px 0 5px 0;
+}
+
+.line {
+    width: 100%;
+    height: 5px;
+    background-color: #7d5835;
+    border-radius: 5px;
+}
+
+.desc-image {
+    width: 50%;
+}
+
+.desc-text {
+    width: 50%;
+}
+
+.upper {
+    display: none;
+}
+.down {
+    display: flex;
+}
+
+.rooms {
+    display: flex; flex-direction: row; width: 100%; justify-content: center;
+}
+.div-list {
+    padding-left: 60px;
+}
 @media screen and (max-width: 1200px) {
     .description,
     .images {
@@ -1126,8 +1179,42 @@ li .img {
     .frame-group {
         gap: 33px;
     }
+    .desc-text {
+        width: 40%;
+    }
 }
+@media screen and (max-width: 1090px) {
+    .rooms {
+        flex-direction: column;
+        align-items: center;
+    }
+    .div-list {
+        padding-left: 0;
+    }
+    .desc-image {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    .desc-text {
+        display: flex;
+        width: 575px;
+    }
 
+    .komnats-descriptions h5 {
+        margin: 0 0 10px 0;
+    }
+
+    .frame-group {
+        gap: 15px;
+    }
+    .ul-list {
+        font-size: 18px;
+    }
+    .rooms {
+        gap: 10px;
+    }
+}
 @media screen and (max-width: 1050px) {
     .shantara-hotel {
         font-size: 40px;
@@ -1146,6 +1233,12 @@ li .img {
     }
 }
 
+@media screen and (max-width: 1000px) {
+    .slider-image {
+        height: 400px;
+        width: 600px;
+    }
+}
 @media screen and (max-width: 750px) {
 
 
@@ -1186,10 +1279,6 @@ li .img {
         gap: 16px;
     }
 
-    .refrigerator-symbol-parent {
-        flex: 1;
-    }
-
     .bathroom-icons {
         flex-wrap: wrap;
         gap: 20px;
@@ -1212,6 +1301,9 @@ li .img {
         height: 350px;
         width: 500px;
     }
+    .desc-text {
+        width: 500px;
+    }
 }
 
 @media screen and (max-width: 540px) {
@@ -1229,6 +1321,11 @@ li .img {
         flex-direction: column;
         align-items: flex-start;
         gap: 15px;
+    }
+
+    .desc-text {
+        justify-content: flex-start;
+        width: 400px;
     }
 
     .frame-parent {
@@ -1298,6 +1395,10 @@ li .img {
 
     .main {
         gap: 15px;
+    }
+    .desc-text {
+        justify-content: flex-start;
+        width: 350px;
     }
 }
 
@@ -2052,53 +2153,6 @@ li .img {
     background-color: #fb6c6c;
 }
 
-.komnats {
-    flex-direction: column;
-    width: 1150px;
-    gap: 25px
-}
-
-.komnats-descriptions {
-    text-align: left;
-    font-size: 22px;
-}
-
-.komnats-descriptions h5 {
-    color: #7d5835;
-    font-size: 24px;
-    margin: 10px 0 10px 0;
-}
-
-.komnats-descriptions ul {
-    padding-inline-start: 30px;
-    margin: 10px 0 10px 0;
-}
-
-.komnats-descriptions li {
-    margin: 10px 0 5px 0;
-}
-
-.line {
-    width: 100%;
-    height: 5px;
-    background-color: #7d5835;
-    border-radius: 5px;
-}
-
-.desc-image {
-    width: 50%;
-}
-
-.desc-text {
-    width: 50%;
-}
-
-.upper {
-    display: none;
-}
-.down {
-    display: flex;
-}
 
 @media screen and (max-width: 850px) {
     .frame-parent1 {

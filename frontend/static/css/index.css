@@ -1151,6 +1151,12 @@ li .img {
 .desc-text {
     width: 50%;
 }
+.booking-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+}
 
 .upper {
     display: none;
@@ -1997,12 +2003,6 @@ li .img {
     width: 100%;
 }
 
-.booking-info {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-top: 10px;
-}
 .input-container-parent {
     width: 994px;
     position: relative;
@@ -2275,5 +2275,4 @@ li .img {
         flex-wrap: wrap;
     }
 }
-
 

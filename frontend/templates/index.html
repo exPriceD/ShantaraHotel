@@ -7,6 +7,7 @@
     <meta name="description"
           content="Маленькие чудеса за городом: откройте для себя радость уютного отдыха вместе с нами!">
     <meta name="Keywords" content="">
+    <link rel="icon" href="../static/public/Vectorlogo.svg" type="image/x-icon">
     <link href=" https://cdn.jsdelivr.net/npm/air-datepicker@3.5.0/air-datepicker.min.css " rel="stylesheet">
     <link rel="stylesheet" href="../static/css/my-slider.css"/>
     <link rel="stylesheet" href="../static/css/global.css">
@@ -59,10 +60,10 @@
                     <div class="ism-slider" id="img-slider">
                         <ol>
                             <li>
-                                <img class="slider-image" src="../static/public/1.jpeg" alt="">
+                                <img class="slider-image" src="../static/public/shantara1.jpg" alt="">
                             </li>
                             <li>
-                                <img class="slider-image" src="../static/public/2.png" alt="" >
+                                <img class="slider-image" src="../static/public/shantara2.jpg" alt="" >
                             </li>
                             <li>
                                 <img class="slider-image" src="../static/public/3.png" alt="" >
@@ -391,7 +392,7 @@
                     <a href="/privacy" target="_blank">Политике в отношении обработки персональных данных</a>.</label>
                     <br>
                 </div>
-                <button class="button7" onclick="createSummaryBlock()" style="max-width: 300px;">
+                <button id="bookingButton" class="button7" onclick="createSummaryBlock()" style="max-width: 300px;">
                     <div class="button8">Забронировать</div>
                 </button>
             </div>
@@ -407,6 +408,17 @@
                 <button class="button7" id="booking-button">
                     <div class="button8">Забронировать</div>
                 </button>
+            </div>
+        </section>
+        <section id="okSection" style="width: 100%; display: none">
+            <div id="bookingSuccessMessage">
+                <div class="booking-success-content" style="display: flex; flex-direction: column; align-items: center;">
+                    <h2 style="color: #5eb45b; margin: 10px 0 10px 0;">Бронирование успешно</h2>
+                    <p>Ваше бронирование успешно оформлено. В ближайшее время с вами свяжется наш менеджер для подтверждения.</p>
+                    <button class="button7" id="ok-button" style="width: 150px;" onclick="closeModal()">
+                        <div style="text-align: center;" class="button8">Ок</div>
+                    </button>
+                </div>
             </div>
         </section>
     </div>
@@ -444,18 +456,40 @@
             });
         });
 
-        console.log(data);
+
 
         // Если все поля заполнены, делаем POST-запрос
         if (allFieldsFilled) {
             axios.post('/api/booking', data)
                 .then(function (response) {
-                    console.log(response);
+                    const summarySection = document.getElementById("summarySection");
+                    summarySection.style.display = "none";
+
+                    const okSection = document.getElementById("okSection");
+                    okSection.style.display = "flex"
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         }
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var consentCheckbox = document.getElementById('consentCheckbox');
+        var bookingButton = document.getElementById('bookingButton');
+
+        // Функция для проверки состояния чек-бокса и изменения активности кнопки
+        function updateButtonState() {
+            bookingButton.disabled = !consentCheckbox.checked;
+        }
+
+        // Начальная проверка состояния чек-бокса при загрузке страницы
+        updateButtonState();
+
+        // Добавление обработчика события на изменение состояния чек-бокса
+        consentCheckbox.addEventListener('change', updateButtonState);
     });
 </script>
 
@@ -589,6 +623,16 @@
         const popup = document.getElementById("framePopup");
         if (!popup) return;
         popup.style.display = 'none';
+
+        const summarySection = document.getElementById("summarySection");
+        summarySection.style.display = "none";
+
+        const okSection = document.getElementById("okSection");
+        okSection.style.display = "none"
+
+        const bookingSection = document.getElementById("booking-form");
+        bookingSection.style.display = "flex"
+
     }
 </script>
 <script>

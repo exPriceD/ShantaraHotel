@@ -57,7 +57,9 @@ def booking():
     db.session.add(new_details)
     db.session.commit()
 
-    message = f"Новое бронирование от {date_now}"
+    message = f"""
+    Новое бронирование от {date_now}\n\nДата заезда: {data['firstDate']}\nДата выезда: {data['secondDate']}\n\nФИО: {name}\nВзрослых: {data['adults']}\nДетей: {data['children']}\nТелефон: {data['phone']}\nПочта: {data['email']}
+    """
     send_notification(message=message)
 
     return jsonify({'status': 200, 'message': 'Booking'})
@@ -66,6 +68,11 @@ def booking():
 @static_pages.route('/', methods=['GET'])
 def main():
     return render_template('index.html')
+
+
+@static_pages.route('/privacy', methods=['GET'])
+def privacy():
+    return render_template('privacy.html')
 
 
 @static_pages.route('/free-dates', methods=['GET'])

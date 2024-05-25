@@ -22,7 +22,12 @@ def send_notification(message):
     bot_token = "7075215827:AAH00pYLrJfuolLP46WnWIln3TwcvNDUA7s"
     method = "sendMessage"
     url = f"https://api.telegram.org/bot{bot_token}/{method}"
+
     chat_id = 903755276
     tg_data = {"chat_id": chat_id, "text": message}
-    req = requests.post(url, data=tg_data)
-    return req
+    requests.post(url, data=tg_data)
+
+    #chat_id = 281126819
+    #tg_data = {"chat_id": chat_id, "text": message}
+    #requests.post(url, data=tg_data)
+

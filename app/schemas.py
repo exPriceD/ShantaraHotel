@@ -10,4 +10,4 @@ class BookingSchema(Schema):
     name = fields.Str(required=True)
     patronymic = fields.Str(required=True)
     phone = fields.Str(required=True)
-    email = fields.Email(required=True)
+    email = fields.Str(required=True)

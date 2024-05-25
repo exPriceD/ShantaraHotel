@@ -30,7 +30,7 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
-        if username == "admin" and password == "admin":
+        if username == "riba-kit" and password == "riba-admin":
             user = User(1)
             login_user(user)
             session.permanent = True

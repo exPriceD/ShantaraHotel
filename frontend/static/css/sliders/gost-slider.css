@@ -506,4 +506,23 @@ p.ism-badge a.ism-link:hover {
     border: none;
     color: #fff; background-color: rgba(0, 0, 0, 0.70);
 }
+@media screen and (max-width: 640px) {
+    #gost-slider {
+        width: 500px;
+        height: 350px;
+    }
+}
 
+@media screen and (max-width: 540px) {
+    #gost-slider {
+        width: 400px;
+        height: 300px;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    #gost-slider {
+        width: 350px;
+        height: 275px;
+    }
+}

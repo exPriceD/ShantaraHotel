@@ -284,13 +284,13 @@ p.ism-badge a.ism-link:hover {
 /* SLIDER */
 
 #spal-slider {
-    width: 600px;
+    width: 575px;
     height: 400px;
     -webkit-border-radius: 5px; border-radius: 5px;
 }
 
 #img-slider-ism-badge {
-    width: 600px;
+    width: 575px;
 }
 
 #spal-slider .ism-button {
@@ -558,5 +558,24 @@ p.ism-badge a.ism-link:hover {
     color: #fff; background-color: rgba(0, 0, 0, 0.70);
 }
 
+@media screen and (max-width: 640px) {
+    #spal-slider {
+        width: 500px;
+        height: 350px;
+    }
+}
 
+@media screen and (max-width: 540px) {
+    #spal-slider {
+        width: 400px;
+        height: 300px;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    #spal-slider {
+        width: 350px;
+        height: 275px;
+    }
+}
 

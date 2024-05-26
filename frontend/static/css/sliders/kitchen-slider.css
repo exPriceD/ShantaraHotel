@@ -290,7 +290,7 @@ p.ism-badge a.ism-link:hover {
 }
 
 #img-slider-ism-badge {
-    width: 600px;
+    width: 575px;
 }
 
 #kitchen-slider .ism-button {
@@ -558,5 +558,24 @@ p.ism-badge a.ism-link:hover {
     color: #fff; background-color: rgba(0, 0, 0, 0.70);
 }
 
+@media screen and (max-width: 640px) {
+    #kitchen-slider {
+        width: 500px;
+        height: 350px;
+    }
+}
 
+@media screen and (max-width: 540px) {
+    #kitchen-slider {
+        width: 400px;
+        height: 300px;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    #kitchen-slider {
+        width: 350px;
+        height: 275px;
+    }
+}
 

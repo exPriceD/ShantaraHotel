@@ -161,7 +161,7 @@
     justify-content: flex-start;
     padding: 25px 0 200px;
     box-sizing: border-box;
-    background-image: url(../public/header@3x.png);
+    background-color: #50744D;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top;
@@ -262,7 +262,7 @@ li .img {
 
 .title {
     font-size: inherit;
-    color: #7d5835;
+    color: #50744D;
 }
 
 .short-description {
@@ -360,7 +360,7 @@ li .img {
     cursor: pointer;
     border: 0;
     padding: 8px 16px;
-    background-color: #7d5835;
+    background-color: #50744D;
     width: 155px;
     margin: 0 !important;
     border-radius: 4px;
@@ -375,7 +375,7 @@ li .img {
 .button3:hover,
 .button7:hover,
 .button:hover {
-    background-color: #a3805c;
+    background-color: #345234;
 }
 
 .feather-icons-wifi {
@@ -825,7 +825,7 @@ li .img {
     cursor: pointer;
     border: 0;
     padding: 8px 16px;
-    background-color: #7d5835;
+    background-color: #50744D;
     flex: 1;
     border-radius: 4px;
     display: flex;
@@ -856,7 +856,7 @@ li .img {
     cursor: pointer;
     border: 0;
     padding: 8px 16px;
-    background-color: #7d5835;
+    background-color: #50744D;
     width: 157px;
     border-radius: 4px;
     display: flex;
@@ -879,9 +879,32 @@ li .img {
     max-width: 100%;
 }
 
+.national-park {
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    max-width: 1150px;
+    padding-bottom: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.national-park-text {
+    width: 75%;
+}
+.national-park-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+}
+.national-park-image {
+    width: 150px;
+    height: 100px;
+}
 .vector-group {
     height: 94px;
-    width: 611px;
+    width: 100%;
     overflow: hidden;
     flex-shrink: 0;
     flex-direction: column;
@@ -893,8 +916,8 @@ li .img {
 
 .desktop-8-child {
     align-self: stretch;
-    flex-direction: row;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     text-align: left;
     font-size: 18px;
     color: #000;
@@ -949,7 +972,7 @@ li .img {
     font-size: 22px;
     font-weight: 600;
     font-family: inherit;
-    color: #9f7349;
+    color: #fff;
 }
 
 .email,
@@ -1000,7 +1023,7 @@ li .img {
     align-self: stretch;
     gap: 10px;
     font-size: 22px;
-    color: #7d5835;
+    color: #50744D;
 }
 
 .refrigerator-symbol-parent {
@@ -1083,7 +1106,7 @@ li .img {
 
 .footer {
     align-self: stretch;
-    background-color: #44423f;
+    background-color: #50744D;
     align-items: center;
     padding: 20px 20px 30px;
     box-sizing: border-box;
@@ -1101,7 +1124,7 @@ li .img {
     background-color: #fff;
     overflow: hidden;
     align-items: flex-start;
-    gap: 62px;
+    gap: 30px;
     line-height: normal;
     letter-spacing: normal;
 }
@@ -1123,7 +1146,7 @@ li .img {
 }
 
 .komnats-descriptions h5 {
-    color: #7d5835;
+    color: #50744D;
     font-size: 24px;
     margin: 10px 0 10px 0;
 }
@@ -1140,7 +1163,7 @@ li .img {
 .line {
     width: 100%;
     height: 5px;
-    background-color: #7d5835;
+    background-color: #50744D;
     border-radius: 5px;
 }
 
@@ -1296,6 +1319,9 @@ li .img {
         box-sizing: border-box;
     }
 
+    .national-park {
+        flex-direction: column;
+    }
 }
 
 @media screen and (max-width: 640px) {
@@ -1959,7 +1985,7 @@ li .img {
     cursor: pointer;
     border: 0;
     padding: 8px 16px;
-    background-color: #7d5835;
+    background-color: #50744D;
     border-radius: 4px;
     flex-direction: row;
 }
@@ -2021,7 +2047,7 @@ li .img {
     max-width: 90%;
     text-align: center;
     font-size: 24px;
-    color: #7d5835;
+    color: #50744D;
     font-family: Montserrat;
 }
 

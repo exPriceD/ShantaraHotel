@@ -255,6 +255,36 @@
 
                     document.getElementById('pending').appendChild(bookingElement);
                 } else if (booking.status === 'confirmed') {
+                    const divButtons = document.createElement('div')
+
+                    const cancelButton = document.createElement('button');
+                    cancelButton.classList.add('cancel-button')
+                    cancelButton.innerText = 'Отменить';
+                    cancelButton.onclick = function () {
+                        axios.post('/admin/cancel/' + booking.id)
+                            .then(response => {
+                                document.getElementById('cancelled').appendChild(bookingElement);
+                                confirmButton.remove();
+                                cancelButton.remove();
+                            })
+                            .catch(error => {
+                                console.error('Ошибка отмены бронирования:', error);
+                            });
+                    };
+
+                    divButtons.classList.add('action-button');
+                    divButtons.appendChild(cancelButton);
+
+                    setTimeout(() => {
+                        const divBookingDescription = document.getElementById(`bookingDescription_${booking.id}`);
+
+                        if (divBookingDescription) {
+                            divBookingDescription.appendChild(divButtons);
+                        } else {
+                            console.error('Элемент для добавления кнопок не найден');
+                        }
+                    }, 0);
+
                     document.getElementById('confirmed').appendChild(bookingElement);
                 } else if (booking.status === 'canceled') {
                     document.getElementById('cancelled').appendChild(bookingElement);
